@@ -1,0 +1,49 @@
+site_name: TER Project
+
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.sections
+  palette:
+    scheme: default
+  font:
+    text: Roboto
+    code: Roboto Mono
+
+nav:
+  - Documentation:
+    - Processus de démarrage: docs/boot_process.md
+    - Petalinux pour Zybo z7-20: docs/petalinux_zybo.md
+  - Journal de bord:
+    - Semaine 1: journal/semaine1.md
+
+markdown_extensions:
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - admonition
+  - footnotes
+  - pymdownx.details
+  - pymdownx.tasklist
+  - pymdownx.emoji
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.snippets
+  - pymdownx.tilde
+  - pymdownx.caret
+  - pymdownx.betterem
+  - pymdownx.magiclink
+  - pymdownx.arithmatex
+  - attr_list
+  - md_in_html
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/votre-projet
