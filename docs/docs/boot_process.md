@@ -9,9 +9,8 @@ graph TD;
     A[FSBL] --> B[U-Boot]
     B --> C[Linux Kernel]
     C --> D[Root FileSystem]
-    C --> E[Device Tree]
+    E[Device Tree] --> C
     D --> F[User Space]
-    E --> F
 ```
 
 ### 1. First Stage Bootloader (FSBL)

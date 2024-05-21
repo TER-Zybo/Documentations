@@ -71,6 +71,18 @@ petalinux-config --get-hw-description=<chemin_du_fichier_xsa>
 2. **Image Packaging Configuration -> Root filesystem type** : Changer en `EXT4`.
 3. **FPGA Manager -> FPGA Manager** : Activer le FPGA Manager.
 
+!!! "erreur"
+    ```plaintext
+    systemd-journald[74]: Failed to set ACL on /var/log/journal/9c71f1e69aeb4ea7b2f7e456bdbed246/user-1000.journal, ignoring: Operation not supported
+    ```
+    Si vous obtennez l'erreur suivante lors du démarage de Linux, il est possible de la corriger en activant `CONFIG_EXT4_FS_POSIX_ACL` dans le noyau Linux.
+    
+    ```bash
+    petalinux-config -c kernel
+    ```
+
+    **File systems** -> **Ext4 POSIX Access Control Lists** : Activer.
+    
 ### Compiler & Générer les Fichiers Nécessaires
 
 1. Construire le projet :
@@ -206,3 +218,10 @@ Sans ces rootfs pré-construits, vous devriez préparer le vôtre en utilisant `
   Lancer un terminal série type gtkterm ou autre sur le bon port avec un baud rate de 115200, 8 bits et 1 bit de stop et aucun bit de parité
 
 Normalement, vous devriez voir le démarrage de Linux sur votre Zybo Z7-20. Have fun !
+
+!!! error "Problèmes Connus"
+    ```plaintext
+    Starting init: /bin/sh exists but couldn't execute it (error -5)
+    Kernel panic - not syncing: No working init found.  Try passing init= option to kernel. See Linux Documentation/admin-guide/init.rst for guidance.
+    ```
+    - **Solution** : Le RootFS est corrompu. Refaites la copie du RootFS sur la carte SD en vérifiant le sha256sum.
