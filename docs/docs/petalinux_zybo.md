@@ -67,8 +67,6 @@ cd petalinux_zybo
 petalinux-config --get-hw-description=<chemin_du_fichier_xsa>
 ```
 
-### Paramètres à Configurer
-
 1. **DTG Settings -> Kernel bootargs -> Add extra boot args** : Ajouter `rw` aux arguments de démarrage à cause d'une erreur dans les arguments générés par PetaLinux (par défaut `ro`).
 2. **Image Packaging Configuration -> Root filesystem type** : Changer en `EXT4`.
 3. **FPGA Manager -> FPGA Manager** : Activer le FPGA Manager.
