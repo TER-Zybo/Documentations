@@ -5,8 +5,22 @@ theme:
   features:
     - navigation.tabs
     - navigation.sections
+    - content.code.copy
   palette:
-    scheme: default
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: Passer au mode clair
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Passer au mode sombre
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Passer au mode automatique
   font:
     text: Roboto
     code: Roboto Mono
@@ -45,7 +59,17 @@ markdown_extensions:
   - attr_list
   - md_in_html
 
-extra:
+extra: 
+  generator: false
+
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/votre-projet
+      link: https://github.com/TER-Zybo
+
+copyright: |
+  &copy; 2024 <a href="https://github.com/HDwayne"  target="_blank" rel="noopener">Dwayne HERZBERG</a>,
+  <a href="https://github.com/Luxrafen0"  target="_blank" rel="noopener">Oleg Paillot</a>.
+
+repo_url: https://github.com/TER-Zybo/Documentations
+repo_name: Documentations
+
