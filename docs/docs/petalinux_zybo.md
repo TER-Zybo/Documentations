@@ -60,6 +60,8 @@ petalinux-create --type project --template zynq --name petalinux_zybo
 
 ### Configuration du Projet
 
+#### Configuration petalinux
+
 Configurer le projet avec le fichier XSA précédemment généré :
 
 ```bash
@@ -67,22 +69,24 @@ cd petalinux_zybo
 petalinux-config --get-hw-description=<chemin_du_fichier_xsa>
 ```
 
-1. **DTG Settings -> Kernel bootargs -> Add extra boot args** : Ajouter `rw` aux arguments de démarrage à cause d'une erreur dans les arguments générés par PetaLinux (par défaut `ro`).
-2. **Image Packaging Configuration -> Root filesystem type** : Changer en `EXT4`.
-3. **FPGA Manager -> FPGA Manager** : Activer le FPGA Manager.
+- **DTG Settings -> Kernel bootargs -> Add extra boot args** : Ajouter `rw` aux arguments de démarrage à cause d'une erreur dans les arguments générés par PetaLinux (par défaut `ro`).
+- **Image Packaging Configuration -> Root filesystem type** : Changer en `EXT4`.
+- **FPGA Manager -> FPGA Manager** : Activer le FPGA Manager.
 
-!!! "erreur"
-    ```plaintext
-    systemd-journald[74]: Failed to set ACL on /var/log/journal/9c71f1e69aeb4ea7b2f7e456bdbed246/user-1000.journal, ignoring: Operation not supported
-    ```
-    Si vous obtennez l'erreur suivante lors du démarage de Linux, il est possible de la corriger en activant `CONFIG_EXT4_FS_POSIX_ACL` dans le noyau Linux.
-    
-    ```bash
-    petalinux-config -c kernel
-    ```
+#### Configuration du Noyau
 
-    **File systems** -> **Ext4 POSIX Access Control Lists** : Activer.
-    
+```bash
+petalinux-config -c kernel
+```
+
+- **File systems** -> **Ext4 POSIX Access Control Lists** : Activer.
+
+Pour corrigier l'erreur `Failed to set ACL on /var/log/journal/9c71f1e69aeb4ea7b2f7e456bdbed246/user-1000.journal, ignoring: Operation not supported`, activer `CONFIG_EXT4_FS_POSIX_ACL` dans le noyau Linux.
+
+- **File systems** -> **Kernel automounter support (supports v3, v4 and v5)** : Activer.
+
+- **Executable file formats** -> **Kernel support for MISC binaries** : Activer.
+
 ### Compiler & Générer les Fichiers Nécessaires
 
 1. Construire le projet :
