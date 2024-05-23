@@ -11,4 +11,4 @@ Recherche et documentation sur encodeurs incrémentaux pour la carte Zybo Z7-20.
 ### Jeudi 23/05
 
 Réalisation projet VHDL pour l'encodeur incrémental avec debuncer. Test de l'encodeur incrémental sur les cartes Zybo Z7-20.
-Ajustement de la documentation en ligne. Activation du SSH sur la carte Zybo Z7-20.
+Ajustement de la documentation en ligne. Activation du SSH sur la carte Zybo Z7-20. Générations du fichier bin + load le fichier sur le FPGA. A faire, utilisation d'un overlay car fpga_manager bloque l'utilisation de linux.

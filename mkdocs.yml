@@ -30,6 +30,8 @@ nav:
     - Processus de démarrage: docs/boot_process.md
     - Petalinux pour Zybo z7-20: docs/petalinux_zybo.md
     - PmodENC VHDL: docs/pmodenc_vhdl.md
+    - Activation SSH: docs/ssh_activation.md
+    - programmation FPGA: docs/fpga_programming.md
   - Journal de bord:
     - Semaine 1: journal/semaine1.md
     - Semaine 2: journal/semaine2.md
