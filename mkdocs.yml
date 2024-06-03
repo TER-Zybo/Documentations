@@ -2,6 +2,7 @@ site_name: TER Project
 
 theme:
   name: material
+  logo: assets/logo.png
   features:
     - navigation.tabs
     - navigation.sections
