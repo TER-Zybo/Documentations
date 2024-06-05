@@ -32,7 +32,6 @@ hsi open_hw_design <path_to_your_xsa_file>
 
 ### 3. Specifier le DTG repository
 
-Spécifiez le répertoire DTG (Device Tree Generator) :
 
 ```bash
 git clone https://github.com/Xilinx/device-tree-xlnx
@@ -40,6 +39,7 @@ cd device-tree-xlnx
 git checkout <xilinx_rel_v20XX.X>
 ```
 
+Spécifiez le répertoire DTG (Device Tree Generator) :
 ```tcl
 hsi set_repo_path <path to device-tree-xlnx repository>
 ```
@@ -52,6 +52,7 @@ Utilisez la commande suivante pour obtenir la liste des processeurs disponibles 
 set procs [hsi get_cells -hier -filter {IP_TYPE==PROCESSOR}]
 ```
 
+Choisissez le processeur que vous souhaitez utiliser pour générer le Device Tree :
 ```tcl
 hsi create_sw_design device-tree -os device_tree -proc <proc_name>
 ```
