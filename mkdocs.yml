@@ -35,6 +35,7 @@ nav:
     - Activation SSH: docs/ssh_activation.md
     - programmation FPGA: docs/fpga_programming.md
     - Baremetal application: docs/baremetal_enc.md
+    - Générer un device tree: docs/device_tree.md
   - Journal de bord:
     - Semaine 1: journal/semaine1.md
     - Semaine 2: journal/semaine2.md
