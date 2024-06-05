@@ -1,0 +1,60 @@
+# Application Encoder sur baremetal Zybo
+
+Ce projet est disponible sur [GitHub](https://github.com/TER-Zybo/Baremetal_ENC).
+
+## Génération du Matériel avec Vivado
+
+Lien de référence : [Tutoriel Pmod-IPs Digilent](https://digilent.com/reference/learn/programmable-logic/tutorials/pmod-ips/start)
+
+L'objectif est de générer un fichier XSA.
+
+### Étapes
+
+1. Créer un projet Vivado avec la carte Zybo Z7-20.
+2. Créer un block design et y ajouter les éléments suivants :
+   - Zynq
+   - PmodENC_v1_0 connecté au port JE
+3. Connecter automatiquement les composants puis valider le design.
+4. Générer le bitstream.
+5. Exporter le matériel avec le bitstream inclus.
+
+## Utilisation de Vitis
+
+Depuis Vivado, sélectionner `Tools -> Launch Vitis IDE`.
+
+### Étapes
+
+1. Ouvrir un workspace.
+2. Créer un composant plateforme :
+   - Nom : platform_enc
+   - Sélectionner le fichier XSA précédemment généré
+3. Créer un composant application :
+   - Nom : app_enc
+   - Plateforme : celle générée précédemment
+
+### Copier les fichiers
+
+- Copier `PmodENC.c` et `PmodENC.h` disponibles à `platform_enc/Source/hw/sdt/drivers/PmodENC_V1_0/src` dans `app_enc/Sources/src`.
+- Copier `main.c` disponible à `platform_enc/Source/hw/sdt/drivers/PmodENC_V1_0/examples` dans `app_enc/Sources/src`.
+
+### Modification du code
+
+Ajouter la ligne suivante dans le fichier `main.c` :
+
+```c
+#define XPAR_PMODENC_0_AXI_LITE_GPIO_BASEADDR 0x40000000
+```
+
+Cela est nécessaire pour spécifier l'adresse de base du GPIO. Cette adresse est définie dans le device tree.
+
+### Configuration de lancement
+
+Changer `Board Initialization` à `FSBL` dans le fichier `launch.json`.
+
+### Compilation et connexion
+
+1. Compiler l'application (plateforme incluse).
+2. Connecter le module ENC à la partie supérieure du port JE.
+3. Brancher le câble USB à l'ordinateur.
+4. Connecter le port série au port COM correspondant avec une vitesse de transmission de 115200 baud.
+5. Lancer l'application.
