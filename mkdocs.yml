@@ -29,13 +29,14 @@ theme:
 
 nav:
   - Documentation:
-    - Processus de démarrage: docs/boot_process.md
-    - Petalinux pour Zybo z7-20: docs/petalinux_zybo.md
-    - PmodENC VHDL: docs/pmodenc_vhdl.md
+    - Séquence de boot: docs/boot_sequence.md
+    - Génération d'un Device Tree: docs/device_tree.md
+    - Programmation FPGA depuis linux: docs/fpga_programming.md
     - Activation SSH: docs/ssh_activation.md
-    - programmation FPGA: docs/fpga_programming.md
-    - Baremetal application: docs/baremetal_enc.md
-    - Générer un device tree: docs/device_tree.md
+    - Projets:
+      - Debian sur Zybo z7-20: docs/petalinux_zybo.md
+      - PmodENC - VHDL personnalisé: docs/pmodenc_vhdl.md
+      - PmodENC - Baremetal application: docs/pmodenc_baremetal.md
   - Journal de bord:
     - Semaine 1: journal/semaine1.md
     - Semaine 2: journal/semaine2.md

@@ -1,5 +1,7 @@
 # Projet VHDL : Contrôle de Compteur avec Encodeur Rotatif PMODENC et Affichage LED
 
+## Introduction
+
 [Ce projet](https://github.com/TER-Zybo/VHDL_PmodENC) démontre comment concevoir un système basé sur VHDL en utilisant Xilinx Vivado pour contrôler un compteur avec l'encodeur rotatif PMODENC. La valeur du compteur est affichée sur 4 LEDs de la carte FPGA Zybo Z7-20.
 
 Ce projet s'inspire du guide [Nexys 3 VHDL Example - ISE 14.2](https://digilent.com/reference/_media/reference/pmod/pmodenc/pmodenc_ise_demo_14-2.zip) de [Digilent](https://digilent.com/reference/pmod/pmodenc/start).

@@ -1,5 +1,7 @@
 # Processus de Boot
 
+## Introduction
+
 Le processus de boot d'un système embarqué sur la Zybo Z7-20 est structuré en plusieurs étapes. Cette organisation en étapes est essentielle pour gérer la complexité du démarrage, l'initialisation progressive des composants matériels, et la configuration logicielle. Voici une explication de chaque étape et pourquoi elles sont nécessaires.
 
 ## Schéma du Processus de Boot
@@ -12,6 +14,8 @@ graph TD;
     E[Device Tree] --> C
     D --> F[User Space]
 ```
+
+## Explication des Étapes
 
 ### 1. First Stage Bootloader (FSBL)
 

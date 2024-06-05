@@ -1,5 +1,9 @@
 # Application Encoder sur baremetal Zybo
 
+## Introduction
+
+Ce projet a pour but de contrôler un encodeur rotatif PMODENC sur la carte Zybo Z7-20 en utilisant un projet baremetal en C avec Vitis. L'encodeur rotatif est un composant qui permet de mesurer la rotation d'un axe. Il est composé de deux signaux A et B qui sont en quadrature. L'encodeur est connecté au port JE de la carte Zybo Z7-20.
+
 Ce projet est disponible sur [GitHub](https://github.com/TER-Zybo/Baremetal_ENC).
 
 ## Génération du Matériel avec Vivado
@@ -18,7 +22,7 @@ L'objectif est de générer un fichier XSA.
 4. Générer le bitstream.
 5. Exporter le matériel avec le bitstream inclus.
 
-## Utilisation de Vitis
+## Application Baremetal avec Vitis
 
 Depuis Vivado, sélectionner `Tools -> Launch Vitis IDE`.
 
