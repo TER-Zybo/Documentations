@@ -60,5 +60,5 @@ Changer `Board Initialization` à `FSBL` dans le fichier `launch.json`.
 1. Compiler l'application (plateforme incluse).
 2. Connecter le module ENC à la partie supérieure du port JE.
 3. Brancher le câble USB à l'ordinateur.
-4. Connecter le port série au port COM correspondant avec une vitesse de transmission de 115200 baud.
+4. Connecter vous au terminal série. 115200 bauds.
 5. Lancer l'application.
