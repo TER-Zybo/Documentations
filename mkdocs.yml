@@ -45,6 +45,7 @@ nav:
     - Semaine 2: journal/semaine2.md
     - Semaine 3: journal/semaine3.md
     - Semaine 4: journal/semaine4.md
+    - Semaine 5: journal/semaine5.md
 
 markdown_extensions:
   - pymdownx.superfences:
