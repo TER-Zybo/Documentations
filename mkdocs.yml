@@ -33,10 +33,13 @@ nav:
     - Génération d'un Device Tree: docs/device_tree.md
     - Programmation FPGA depuis linux: docs/fpga_programming.md
     - Activation SSH: docs/ssh_activation.md
+    - Device Tree Overlay: docs/device_tree_overlay.md
+    - PmodENC - IP personnalisé: docs/pmodenc_ip.md
     - Projets:
       - Debian sur Zybo z7-20: docs/petalinux_zybo.md
       - PmodENC - VHDL personnalisé: docs/pmodenc_vhdl.md
       - PmodENC - Baremetal application: docs/pmodenc_baremetal.md
+      - PmodENC - Linux application: docs/pmodenc_linux.md
   - Journal de bord:
     - Semaine 1: journal/semaine1.md
     - Semaine 2: journal/semaine2.md

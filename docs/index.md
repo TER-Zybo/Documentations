@@ -2,5 +2,5 @@
 
 ## Sections
 
-- [Documentations](docs/boot_process.md)
+- [Documentations](docs/boot_sequence.md)
 - [Journal de bord](journal/semaine1.md)
