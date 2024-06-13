@@ -60,7 +60,8 @@ Remplacez `<numéro_de_broche>` et `<nom_du_port>` par les valeurs appropriées 
     set_property -dict { PACKAGE_PIN U17   IOSTANDARD LVCMOS33 } [get_ports { Pmod_out_0_pin8_io }]; #IO_L9N_T1_DQS_34 Sch=je[8]                  
     set_property -dict { PACKAGE_PIN T17   IOSTANDARD LVCMOS33 } [get_ports { Pmod_out_0_pin9_io }]; #IO_L20P_T3_34 Sch=je[9]                     
     set_property -dict { PACKAGE_PIN Y17   IOSTANDARD LVCMOS33 } [get_ports { Pmod_out_0_pin10_io }]; #IO_L7N_T1_34 Sch=je[10]    
-    ```	
+    ```
+    Merci de remplacer `Pmod_out_0` par le nom du port de sortie du bloc IP PetaENC.
 
 ## Références
 
