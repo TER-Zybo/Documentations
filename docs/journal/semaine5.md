@@ -9,3 +9,11 @@ Debug du bloc IP custom : registres tristate du Pmod Bridge non-configurés en i
 Développement d'une appli de test plus pratique côté Linux, check direct d'une adresse d'un device UIO avec polling toutes les secondes en option.
 
 **Encodeur fonctionnel et continuité des opérations niveau Linux assurée.**
+
+### Mercredi 12/06
+
+Discussion projet, avancées mineures
+
+### Jeudi 13/06
+
+### Vendredi 14/06
