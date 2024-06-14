@@ -1,4 +1,4 @@
-# Linux sur Zybo Z7-20 avec PetaLinux
+# Installation de Linux sur la Zybo Z7-20 avec PetaLinux
 
 ## Introduction
 
