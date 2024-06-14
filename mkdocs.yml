@@ -33,11 +33,11 @@ nav:
     - Les Devices Tree: docs/device_tree.md
     - FPGA Manager: docs/fpga_manager.md
     - Activation SSH: docs/ssh_activation.md
-    - PmodENC - Bloc IP personnalisé: docs/pmodenc_ip.md
     - Projets:
       - Debian sur Zybo z7-20: docs/petalinux_zybo.md
       - PmodENC - VHDL personnalisé: docs/pmodenc_vhdl.md
       - PmodENC - Baremetal application: docs/pmodenc_baremetal.md
+      - PmodENC - Bloc IP personnalisé: docs/pmodenc_ip.md
       - WIP PmodENC - Linux application: docs/pmodenc_linux.md
   - Journal de bord:
     - Semaine 1: journal/semaine1.md
