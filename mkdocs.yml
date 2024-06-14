@@ -34,7 +34,8 @@ nav:
     - FPGA Manager: docs/fpga_manager.md
     - Activation SSH: docs/ssh_activation.md
     - Projets:
-      - Debian sur Zybo z7-20: docs/petalinux_zybo.md
+      # - Debian sur Zybo z7-20: docs/linux_zybo.md
+      - Linux   - Zybo z7-20: docs/linux_zybo.md
       - PmodENC - VHDL personnalisé: docs/pmodenc_vhdl.md
       - PmodENC - Baremetal application: docs/pmodenc_baremetal.md
       - PmodENC - Bloc IP personnalisé: docs/pmodenc_ip.md

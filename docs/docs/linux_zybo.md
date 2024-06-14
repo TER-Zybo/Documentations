@@ -16,6 +16,9 @@ Ce guide a pour objectif de décrire l'installation et la configuration de Linux
 
 L'objectif est de générer un fichier XSA à partir du projet Vivado pour l'utiliser dans PetaLinux.
 
+!!! info "Qu'est-ce qu'un fichier XSA ?"
+    Le fichier XSA contient toutes les informations nécessaires sur le design matériel, y compris les configurations des blocs IP, les contraintes de timing, les périphériques et les connexions internes. Il inclut également le bitstream généré.
+
 Nous utilisons le dépôt officiel de la Zybo Z7-20 disponible sur [GitHub](https://github.com/Digilent/Zybo-Z7) en suivant la documentation [Digilent FPGA Demo Git Repositories](https://digilent.com/reference/programmable-logic/documents/git?redirect=1). Le dépot n'est pas mis à jour pour la version 2023.2 de Vivado, mais Vivado est capable de mettre à jour les IPs automatiquement.
 
 
@@ -44,7 +47,7 @@ Nous utilisons le dépôt officiel de la Zybo Z7-20 disponible sur [GitHub](http
 
         - **Solution Optionelle** : Mettre à jour l'IP `ila_pixclk` pour correspondre à la valeur de la carte Zybo-Z7-20.
 
-5. Exporter le matériel en générant le fichier XSA (Hardware Specification Archive). Le fichier XSA contient toutes les informations nécessaires sur le design matériel, y compris les configurations des blocs IP, les contraintes de timing, les périphériques et les connexions internes. Il inclut également le bitstream généré.
+5. Exporter le matériel en générant le fichier XSA (Hardware Specification Archive). 
 
 Nous avons maintenant un fichier XSA que nous pouvons utiliser pour générer le système d'exploitation avec PetaLinux.
 
