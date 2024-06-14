@@ -1,6 +1,8 @@
-# PetaENC - Bloc IP personnalisé
+# Digilent PmodENC - Bloc IP personnalisé
 
 ## Introduction
+
+Le Digilent PmodENC est un module d'entrée rotatif qui permet aux utilisateurs d'ajouter une interface de contrôle rotative à leurs projets FPGA. Ce module inclut un encodeur rotatif, un bouton-poussoir intégré et un switch. Plus d'informations sur ce composant peuvent être trouvées sur la [page officielle du PmodENC](https://digilent.com/reference/pmod/pmodenc/start).
 
 Digilent propose un bloc IP officiel pour le PmodENC, mais il ne correspond pas à nos besoins car son utilisation nécessite de coder le compteur 4 bits et l'antirebond du côté PS au lieu du côté PL. Nous avons donc créé un simple bloc IP incluant un compteur 4 bits en module RTL codé en VHDL.
 
@@ -65,5 +67,6 @@ Remplacez `<numéro_de_broche>` et `<nom_du_port>` par les valeurs appropriées 
 
 ## Références
 
+- [Pmod ENC](https://digilent.com/reference/pmod/pmodenc/start)
 - [Répertoire IP PetaENC](https://github.com/TER-Zybo/PetaENC_IP)
 - [Bibliothèque Vivado de Digilent 2019.1](https://github.com/Digilent/vivado-library/)

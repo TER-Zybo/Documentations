@@ -33,7 +33,7 @@ nav:
     - Les Devices Tree: docs/device_tree.md
     - FPGA Manager: docs/fpga_manager.md
     - Activation SSH: docs/ssh_activation.md
-    - PetaENC - Bloc IP personnalisé: docs/pmodenc_ip.md
+    - PmodENC - Bloc IP personnalisé: docs/pmodenc_ip.md
     - Projets:
       - Debian sur Zybo z7-20: docs/petalinux_zybo.md
       - PmodENC - VHDL personnalisé: docs/pmodenc_vhdl.md
