@@ -30,8 +30,8 @@ theme:
 nav:
   - Documentation:
     - Séquence de boot: docs/boot_sequence.md
-    - Génération d'un Device Tree: docs/device_tree.md
-    - Programmation FPGA depuis linux: docs/fpga_programming.md
+    - Les Devices Tree: docs/device_tree.md
+    - FPGA manager: docs/fpga_programming.md
     - Activation SSH: docs/ssh_activation.md
     - PetaENC - Bloc IP personnalisé: docs/pmodenc_ip.md
     - Projets:
