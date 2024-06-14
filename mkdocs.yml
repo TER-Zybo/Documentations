@@ -31,7 +31,7 @@ nav:
   - Documentation:
     - Séquence de boot: docs/boot_sequence.md
     - Les Devices Tree: docs/device_tree.md
-    - FPGA manager: docs/fpga_programming.md
+    - FPGA Manager: docs/fpga_manager.md
     - Activation SSH: docs/ssh_activation.md
     - PetaENC - Bloc IP personnalisé: docs/pmodenc_ip.md
     - Projets:
