@@ -16,7 +16,7 @@ Ce projet s'inspire du guide [Nexys 3 VHDL Example - ISE 14.2](https://digilent.
 
 Le projet utilise trois fichiers VHDL : pmodenc.vhd, encoder.vhd et debouncer.vhd. Ces fichiers définissent la logique de l'encodeur rotatif, le compteur et le décompteur, ainsi que la stabilisation des signaux d'entrée.
 
-??? info "Code VHDL : `pmodenc.vhd`"
+??? abstract "Code VHDL : `pmodenc.vhd`"
     Ce fichier contient l'entité principale qui connecte le décompteur et l'encodeur.
 
     ```vhdl
@@ -56,7 +56,7 @@ Le projet utilise trois fichiers VHDL : pmodenc.vhd, encoder.vhd et debouncer.vh
     end Behavioral;
     ```
 
-??? info "Code VHDL : `encoder.vhd`"
+??? abstract "Code VHDL : `encoder.vhd`"
     Ce fichier gère l'état de l'encodeur rotatif et met à jour les LEDs en fonction des mouvements.
 
     ```vhdl
@@ -190,7 +190,7 @@ Le projet utilise trois fichiers VHDL : pmodenc.vhd, encoder.vhd et debouncer.vh
     end Behavioral;
     ```
 
-??? info "Code VHDL : `debouncer.vhd`"
+??? abstract "Code VHDL : `debouncer.vhd`"
     Ce fichier filtre les signaux d'entrée pour éliminer les rebonds (bruit) et fournit des signaux stables à l'encodeur.
 
     ```vhdl
@@ -243,7 +243,7 @@ Le projet utilise trois fichiers VHDL : pmodenc.vhd, encoder.vhd et debouncer.vh
 
 ## Configuration matérielle
 
-??? info "Contraintes XDC"
+??? abstract "Contraintes XDC"
     Les contraintes XDC sont utilisées pour mapper les signaux du projet VHDL aux broches physiques de la carte FPGA.
 
     ```xdc
