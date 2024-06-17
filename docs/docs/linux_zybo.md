@@ -155,7 +155,103 @@ Téléchargez, par exemple, `debian-12.1-minimal-armhf-2023-08-22.tar.xz`. Veill
     - Première partition : "BOOT", Au moins 500 MB. Formater en FAT32. 4MiB libres avant la première partition.
     - Deuxième partition : "RootFS", Utiliser l'espace restant. Formater en EXT4.
 
-    !!! info "Exemple carte SD préparée"
+    ??? tip "Utilisation de `fdisk`"
+        ### Procédure pour formater une carte SD
+
+        #### Étape 1: Lister les devices disponibles
+
+        D'abord, lister tous les devices de stockage disponibles pour identifier le device correspondant à la carte SD.
+
+        ```bash
+        sudo fdisk -l
+        ```
+
+        Cherchez votre carte SD dans la liste des devices. Supposons qu'il s'agit de `/dev/mmcblk0` dans cet exemple.
+
+        #### Étape 2: Démarrer `fdisk` pour partitionner la carte SD
+
+        Démarrez `fdisk` sur le device de la carte SD.
+
+        ```bash
+        sudo fdisk /dev/mmcblk0
+        ```
+
+        #### Étape 3: Ajouter une nouvelle partition
+
+        1. Ajouter une nouvelle partition:
+
+               ```
+               Command (m for help): n
+               ```
+
+               - Choisir le type de partition : primaire (`p`).
+               - Numéro de partition : 1.
+               - Premier secteur : 8192.
+               - Dernier secteur : +500M (pour créer une partition de 500 MiB).
+
+               ```
+               Partition type
+                  p   primary (0 primary, 0 extended, 4 free)
+               Select (default p): p
+               Partition number (1-4, default 1): 1
+               First sector (2048-15523839, default 2048): 8192
+               Last sector, +/-sectors or +/-size{K,M,G,T,P} (8192-15523839, default 15523839): +500M
+               ```
+
+        2. Ajouter une seconde partition:
+
+               ```
+               Command (m for help): n
+               ```
+
+               - Choisir le type de partition : primaire (`p`).
+               - Numéro de partition : 2.
+               - Premier secteur : utiliser le meme secteur que la fin de la première partition afin de laisser fdisck calculer l'espace restant.
+               - Dernier secteur : laisser par défaut pour utiliser l'espace restant.
+
+               ```
+               Command (m for help): n
+                Partition type
+                   p   primary (1 primary, 0 extended, 3 free)
+                   e   extended (container for logical partitions)
+                Select (default p): p
+                Partition number (2-4, default 2): 2
+                First sector (2048-15523839, default 2048): 8192
+
+                Sector 8192 is already allocated.
+                First sector (1032192-15523839, default 1032192): [Appuyer sur Entrée pour prendre par défaut]
+                Last sector, +/-sectors or +/-size{K,M,G,T,P} (1032192-15523839, default 15523839): : [Appuyer sur Entrée pour prendre par défaut]
+               ```
+
+        #### Étape 4: Écrire les changements
+
+        Écrire les modifications sur le disque et quitter `fdisk`:
+
+        ```
+        Command (m for help): w
+        ```
+
+        #### Étape 5: Formater les partitions
+
+        1. Lister les partitions pour confirmer les nouvelles partitions:
+
+           ```bash
+           sudo fdisk -l
+           ```
+
+        2. Formater la première partition en FAT32:
+
+           ```bash
+           sudo mkfs.fat -F 32 /dev/mmcblk0p1
+           ```
+
+        3. Formater la seconde partition en ext4:
+
+           ```bash
+           sudo mkfs.ext4 /dev/mmcblk0p2
+           ```
+
+    ??? info "Exemple carte SD préparée"
         ```plaintext
         Numéro de partition (1,2, 2 par défaut) : 1
 
