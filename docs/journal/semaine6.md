@@ -9,9 +9,9 @@ Documentation                             --
     Projets                               --
         Linux - Zybo z7-20                OK
         PmodENC - VHDL personnalisé       OK
-        PmodENC - Baremetal application
+        PmodENC - Baremetal application   OK
         PmodENC - Bloc IP personnalisé    OK
-        WIP PmodENC - Linux application
+        WIP PmodENC - Linux application   TODO
     Rappels                               --
         Activation SSH                    OK
 ```
