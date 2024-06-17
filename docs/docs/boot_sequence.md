@@ -76,6 +76,8 @@ Le **Device Tree** est une structure qui décrit le matériel présent sur la ca
     }
     ```
 
+Vous pouvez vous référer à la [Les Devices Tree](device_tree.md) pour en savoir plus sur la structure et la génération des fichiers Device Tree et Device Tree Overlay (DTO).
+
 ### 5. Root File System
 
 Le **RFS** fournit le contexte et les ressources nécessaires au noyau Linux pour exécuter des applications et des services. Sans un système de fichiers monté, le noyau ne peut pas accéder aux fichiers et aux commandes nécessaires pour démarrer le système et exécuter des tâches.
