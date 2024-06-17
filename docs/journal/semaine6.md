@@ -10,7 +10,7 @@ Documentation                             --
         Linux - Zybo z7-20                OK
         PmodENC - VHDL personnalisé
         PmodENC - Baremetal application
-        PmodENC - Bloc IP personnalisé
+        PmodENC - Bloc IP personnalisé    OK
         WIP PmodENC - Linux application
     Rappels                               --
         Activation SSH                    OK

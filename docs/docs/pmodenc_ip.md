@@ -14,6 +14,7 @@ Le bloc IP PetaENC est constitué de :
 - Le module RTL du compteur, comportant également un antirebond, le tout en VHDL.
 - Un bloc Pmod Bridge, permettant d'interfacer le Pmod avec le module.
 
+![design](../assets/docs/pmodenc_ip/design.png)
 
 ## Utilisation
 
