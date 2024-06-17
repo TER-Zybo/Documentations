@@ -155,10 +155,8 @@ Téléchargez, par exemple, `debian-12.1-minimal-armhf-2023-08-22.tar.xz`. Veill
     - Première partition : "BOOT", Au moins 500 MB. Formater en FAT32. 4MiB libres avant la première partition.
     - Deuxième partition : "RootFS", Utiliser l'espace restant. Formater en EXT4.
 
-    ??? tip "Utilisation de `fdisk`"
-        ### Procédure pour formater une carte SD
-
-        #### Étape 1: Lister les devices disponibles
+    ??? tip "Procédure pour formater une carte SD avec `fdisk`"
+        **Étape 1**: Lister les devices disponibles
 
         D'abord, lister tous les devices de stockage disponibles pour identifier le device correspondant à la carte SD.
 
@@ -168,7 +166,7 @@ Téléchargez, par exemple, `debian-12.1-minimal-armhf-2023-08-22.tar.xz`. Veill
 
         Cherchez votre carte SD dans la liste des devices. Supposons qu'il s'agit de `/dev/mmcblk0` dans cet exemple.
 
-        #### Étape 2: Démarrer `fdisk` pour partitionner la carte SD
+        **Étape 2**: Démarrer `fdisk` pour partitionner la carte SD
 
         Démarrez `fdisk` sur le device de la carte SD.
 
@@ -176,7 +174,7 @@ Téléchargez, par exemple, `debian-12.1-minimal-armhf-2023-08-22.tar.xz`. Veill
         sudo fdisk /dev/mmcblk0
         ```
 
-        #### Étape 3: Ajouter une nouvelle partition
+        **Étape 3**: Ajouter une nouvelle partition
 
         1. Ajouter une nouvelle partition:
 
@@ -223,7 +221,7 @@ Téléchargez, par exemple, `debian-12.1-minimal-armhf-2023-08-22.tar.xz`. Veill
                 Last sector, +/-sectors or +/-size{K,M,G,T,P} (1032192-15523839, default 15523839): : [Appuyer sur Entrée pour prendre par défaut]
                ```
 
-        #### Étape 4: Écrire les changements
+        **Étape 4**: Écrire les changements
 
         Écrire les modifications sur le disque et quitter `fdisk`:
 
@@ -231,25 +229,25 @@ Téléchargez, par exemple, `debian-12.1-minimal-armhf-2023-08-22.tar.xz`. Veill
         Command (m for help): w
         ```
 
-        #### Étape 5: Formater les partitions
+        **Étape 5**: Formater les partitions
 
-        1. Lister les partitions pour confirmer les nouvelles partitions:
+        1.  Lister les partitions pour confirmer les nouvelles partitions:
 
-           ```bash
-           sudo fdisk -l
-           ```
+            ```bash
+            sudo fdisk -l
+            ```
 
-        2. Formater la première partition en FAT32:
+        2.  Formater la première partition en FAT32:
 
-           ```bash
-           sudo mkfs.fat -F 32 /dev/mmcblk0p1
-           ```
+            ```bash
+            sudo mkfs.fat -F 32 /dev/mmcblk0p1
+            ```
 
-        3. Formater la seconde partition en ext4:
+        3.  Formater la seconde partition en ext4:
 
-           ```bash
-           sudo mkfs.ext4 /dev/mmcblk0p2
-           ```
+            ```bash
+            sudo mkfs.ext4 /dev/mmcblk0p2
+            ```
 
     ??? info "Exemple carte SD préparée"
         ```plaintext
