@@ -8,7 +8,7 @@ Documentation                             --
     FPGA Manager                          OK
     Projets                               --
         Linux - Zybo z7-20                OK
-        PmodENC - VHDL personnalisé
+        PmodENC - VHDL personnalisé       OK
         PmodENC - Baremetal application
         PmodENC - Bloc IP personnalisé    OK
         WIP PmodENC - Linux application
