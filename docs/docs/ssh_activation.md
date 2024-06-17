@@ -10,7 +10,7 @@ Pour faciliter la connexion SSH, il peut être utile de configurer une IP statiq
 
 1. **Éditez le fichier de configuration réseau :**
 
-    ```bash
+    ```
     sudo vim /etc/network/interfaces.d/ssh_static.conf
     ```
 
@@ -28,13 +28,13 @@ Pour faciliter la connexion SSH, il peut être utile de configurer une IP statiq
 
 2. **Redémarrez le service réseau :**
 
-    ```bash
+    ```
     sudo systemctl restart networking
     ```
 
 3. **Vérifiez la configuration réseau :**
 
-    ```bash
+    ```
     ifconfig
     ```
 
@@ -46,7 +46,7 @@ Pour faciliter la connexion SSH, il peut être utile de configurer une IP statiq
 
 5. **Testez la connexion en pingant l'adresse IP :**
 
-    ```bash
+    ```
     ping 192.168.0.50
     ```
 
@@ -56,7 +56,7 @@ Pour faciliter la connexion SSH, il peut être utile de configurer une IP statiq
 
 1. **Éditez le fichier de configuration SSH :**
 
-    ```bash
+    ```
     sudo vim /etc/ssh/sshd_config.d/local.conf
     ```
 
@@ -72,13 +72,13 @@ Pour faciliter la connexion SSH, il peut être utile de configurer une IP statiq
 
 2. **Redémarrez le service SSH :**
 
-    ```bash
+    ```
     sudo systemctl restart sshd
     ```
 
 3. **Vérifiez l'état du service SSH :**
 
-    ```bash
+    ```
     sudo systemctl status sshd
     ```
 
@@ -86,7 +86,7 @@ Pour faciliter la connexion SSH, il peut être utile de configurer une IP statiq
 
 4. **Testez la connexion SSH depuis votre PC :**
 
-    ```bash
+    ```
     ssh debian@192.168.0.50
     ```
 
