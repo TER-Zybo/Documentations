@@ -2,48 +2,31 @@
 
 ## Introduction
 
-Les FPGA (Field-Programmable Gate Arrays) sont des circuits intégrés reprogrammables qui permettent une grande flexibilité pour diverses applications. Pour programmer ces dispositifs, des fichiers spécifiques sont utilisés : les fichiers BIT et BIN. Ce guide vous expliquera comment générer un fichier BIN à partir d'un fichier BIT et l'utiliser pour programmer votre FPGA, en utilisant l'outil FPGA Manager sous Linux.
+Les FPGA (Field-Programmable Gate Arrays) sont des circuits intégrés reprogrammables offrant une grande flexibilité pour diverses applications. Pour programmer ces dispositifs, des fichiers spécifiques sont utilisés : les fichiers BIT et BIN. Ce guide vous explique comment générer un fichier BIN à partir d'un fichier BIT et l'utiliser pour programmer votre FPGA en utilisant l'outil FPGA Manager sous Linux.
 
-## FPGA Manager : Fonctionnement et Utilité
+## Les fichiers nécéssaires pour la programmation FPGA
 
-Le gestionnaire FPGA (FPGA Manager) est une interface du noyau Linux permettant de charger et gérer les bitstreams des FPGA. Il permet une interaction simplifiée avec le FPGA, en exposant des fichiers virtuels à travers le système de fichiers Linux.
+### Qu'est-ce qu'un Bitstream ?
 
-### Principaux Composants de FPGA Manager
+Un bitstream est un fichier qui contient les informations nécessaires pour configurer un FPGA. Il détermine comment les ressources logiques et les interconnexions du FPGA doivent être programmées pour effectuer des tâches spécifiques. Les bitstreams peuvent être générés à l'aide d'outils de conception FPGA comme Vivado.
 
-- **flags** : Ce fichier permet de définir des options pour le chargement du bitstream. Par exemple, définir à `0` pour un bitstream complet.
-- **firmware** : Ce fichier est utilisé pour spécifier le nom du bitstream à charger. Le bitstream doit être placé dans `/lib/firmware`.
-
-## Mise à jour du FPGA depuis Linux
-
-### Activer FPGA Manager
-
-Avant de pouvoir utiliser FPGA Manager, vous devez vous assurer qu'il est activé dans votre configuration PetaLinux. Suivez les étapes détaillées dans le guide [PetaLinux Tools Documentation: Reference Guide (UG1144)](https://docs.amd.com/r/en-US/ug1144-petalinux-tools-reference-guide/FPGA-Manager-Configuration-and-Usage-for-Zynq-7000-Devices-and-Zynq-UltraScale-MPSoC) pour activer FPGA Manager pour les dispositifs Zynq-7000 et Zynq UltraScale MPSoC.
-
-### Préparation du Fichier BIN
-
-Avant de pouvoir charger le bitstream dans le FPGA, vous devez générer un fichier BIN à partir du fichier BIT. Suivez les étapes ci-dessous pour générer un fichier BIN à partir d'un fichier BIT.
-
-#### Fichiers BIT et BIN : Quelles différences ?
+### Différences entre Fichiers BIT et BIN
 
 | Caractéristique      | Fichiers BIT (Bitstream)                                              | Fichiers BIN                                                |
 |----------------------|-----------------------------------------------------------|-------------------------------------------------------------|
-| **Contenu**          | Ce bitstream inclut les informations nécessaires pour programmer les ressources logiques et les interconnexions du FPGA. | Versions binaires du bitstream de configuration. Compatibles avec les outils de gestion FPGA sous Linux. |
+| **Contenu**          | Inclut les informations nécessaires pour programmer les ressources logiques et les interconnexions du FPGA. | Versions binaires du bitstream de configuration. Compatibles avec les outils de gestion FPGA sous Linux. |
 | **Génération**       | Générés par des outils de synthèse et de placement/routage comme `Vivado`. | Générés à partir des fichiers BIT en utilisant l'outil `bootgen`.
 
-#### Comment générer un fichier BIN à partir d'un fichier BIT ?
+!!! note "Pourquoi utiliser un fichier BIN ?"
+    Les fichiers BIN sont utilisés pour charger les bitstreams dans les FPGA depuis un environnement Linux. Ils sont compatibles avec les outils de gestion FPGA comme FPGA Manager. Il n'est pas possible de charger directement un fichier BIT dans un FPGA depuis Linux.
 
-!!! warning "NE PAS UTILISER VIVADO !"
-    Vivado génère des fichiers BIN qui ne sont pas compatibles avec le chargement du FPGA depuis Linux.
-    
-    ```plaintext	
-    Paramètres -> Bitstream -> -bin_file : activer
-    ```
+### Génération d'un Fichier BIN à partir d'un Fichier BIT
 
-    Le fichier sera généré dans `proj_name/proj_name.runs/impl_1` ne sera pas compatible avec le chargement du FPGA depuis Linux.
-    
-    l'utilisation de `bootgen` est nécessaire pour générer un fichier BIN compatible.
+bootgen est un outil fourni par Xilinx qui permet de générer des fichiers BIN à partir de fichiers BIF (Boot Image Format).
 
-1. Créez un fichier de configuration BIF nommé avec le contenu suivant :
+Pour générer un fichier BIN à partir d'un fichier BIT, suivez ces étapes :
+
+1. Créez un fichier de configuration BIF nommé `project.bif` avec le contenu suivant :
 
     ```plaintext title="project.bif"
     all:
@@ -52,32 +35,117 @@ Avant de pouvoir charger le bitstream dans le FPGA, vous devez générer un fich
     }
     ```
 
+    > Plus d'informations sur le format BIF sont disponibles dans la [documentation Xilinx](https://docs.amd.com/r/en-US/ug1400-vitis-embedded/Boot-Image-Format-BIF).
+
 2. Utilisez la commande `bootgen` pour générer le fichier BIN :
 
     ```bash
     bootgen -image project.bif -arch zynq -process_bitstream bin
     ```
 
-### Utilisation de FPGA Manager
+!!! warning "NE PAS UTILISER VIVADO !"
+    Vivado génère des fichiers BIN qui ne sont pas compatibles avec le chargement du FPGA depuis Linux. Pour générer un fichier BIN compatible, utilisez `bootgen`.
 
-1. Connectez-vous en tant qu'utilisateur root :
-
-    ```bash
-    sudo -i
+    ```plaintext	
+    Paramètres -> Bitstream -> -bin_file : activer
     ```
 
-2. Définissez les flags pour le Full Bitstream :
+    Le fichier sera généré dans `proj_name/proj_name.runs/impl_1` ne sera pas compatible avec le chargement du FPGA depuis Linux.
 
-    ```bash
-    echo 0 > /sys/class/fpga_manager/fpga0/flags
-    ```
+    l'utilisation de `bootgen` est nécessaire pour générer un fichier BIN compatible.
 
-3. Chargez le Bitstream dans le PL :
+## FPGA Manager
 
-     ```bash
-     mkdir -p /lib/firmware
-     cp project.bit.bin /lib/firmware/
-     echo project.bit.bin > /sys/class/fpga_manager/fpga0/firmware
-     ```
+### Introduction à FPGA Manager
 
-4. Félicitations, vous avez terminé !
+FPGA Manager est une interface du noyau Linux qui permet de charger et de gérer les bitstreams des FPGA. Il simplifie l'interaction avec le FPGA en exposant des fichiers virtuels à travers le système de fichiers Linux, ce qui facilite la reconfiguration et la mise à jour des FPGA.
+
+Composants Principaux du FPGA Manager
+
+- **flags** : Ce fichier permet de définir des options pour le chargement du bitstream. Par exemple, définir la valeur à `0` pour indiquer un bitstream complet.
+> Plus d'informations sur les types de bitstreams fournies par le [support xilinx](https://support.xilinx.com/s/article/63419?language=en_US)
+
+- **firmware** : Ce fichier est utilisé pour spécifier le nom du bitstream à charger. Le bitstream doit être placé dans le répertoire `/lib/firmware`.
+
+!!! info "Activation du FPGA Manager"
+    Avant de pouvoir utiliser FPGA Manager, vous devez vous assurer qu'il est activé dans votre configuration PetaLinux. Suivez les étapes détaillées dans le guide [PetaLinux Tools Documentation: Reference Guide (UG1144)](https://docs.amd.com/r/en-US/ug1144-petalinux-tools-reference-guide/FPGA-Manager-Configuration-and-Usage-for-Zynq-7000-Devices-and-Zynq-UltraScale-MPSoC) pour activer FPGA Manager pour les dispositifs Zynq-7000 et Zynq UltraScale MPSoC.
+
+### Mise à Jour du FPGA depuis Linux
+
+Suivez les étapes ci-dessous pour mettre à jour le FPGA en utilisant FPGA Manager. ([source](https://xilinx-wiki.atlassian.net/wiki/spaces/A/pages/18841645/Solution+Zynq+PL+Programming+With+FPGA+Manager))
+
+=== "Sans DTO"
+
+    1. Connectez-vous en tant qu'utilisateur root :
+
+        ```bash
+        sudo -i
+        ```
+
+    2. Définissez les flags pour le Bitstream complet :
+
+        ```bash
+        echo 0 > /sys/class/fpga_manager/fpga0/flags
+        ```
+
+    3. Chargez le Bitstream dans le PL :
+
+        ```bash
+        mkdir -p /lib/firmware
+        cp project.bit.bin /lib/firmware/
+        echo project.bit.bin > /sys/class/fpga_manager/fpga0/firmware
+        ```
+
+    4. Félicitations, le FPGA a été mis à jour avec succès !
+
+=== "Avec DTO"
+
+    1. **Préparation du Device Tree Overlay (DTO)**
+
+        Assurez-vous que votre DTO est correctement configuré pour votre projet. La configuration et compilation d'un DTO est détaillée dans la section [Les Devices Tree](device_tree.md).
+
+        Vous devez avoir un fichier `.dtbo` prêt à être utilisé pour configurer le FPGA.
+
+    2. **Chargement du DTO et Programmation du FPGA**
+
+        1. Connectez-vous en tant qu'utilisateur root :
+
+            ```bash
+            sudo -i
+            ```
+
+        2. Définissez les flags pour le Bitstream complet :
+
+            ```bash
+            echo 0 > /sys/class/fpga_manager/fpga0/flags
+            ```
+
+        3. Copiez le Bitstream et le DTBO dans le répertoire `/lib/firmware` :
+
+            ```bash
+            mkdir -p /lib/firmware
+            cp project.bit.bin /lib/firmware/project.bit.bin
+            cp pl.dtbo /lib/firmware/
+            ```
+
+        4. Appliquez le DTBO :
+            
+            ```bash
+            mkdir /configfs
+            mount -t configfs configfs /configfs
+            cd /configfs/device-tree/overlays/
+            mkdir full
+            echo -n "pl.dtbo" > full/path
+            ```
+
+            !!! note "Remarque"
+                Lorsque vous appliquez un DTBO, le FPGA est automatiquement programmé avec le bitstream spécifié dans le DTO.
+
+        5. supprimez le DTBO :
+
+            ```bash
+            cd /configfs/device-tree/overlays/
+            rmdir full
+            ```
+
+        6. Félicitations, votre FPGA a été mis à jour avec succès en utilisant un DTO !

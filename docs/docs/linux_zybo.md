@@ -9,17 +9,20 @@ Ce guide a pour objectif de décrire l'installation et la configuration de Linux
 
 ## Prérequis
 
-- **Vivado** : Pour générer le fichier bitstream et le fichier XSA. [Télécharger Vivado](https://www.xilinx.com/support/download.html).
+- **Vivado** : Pour générer le bitstream et le XSA. [Télécharger Vivado](https://www.xilinx.com/support/download.html).
 - **PetaLinux** : Pour générer le système de fichiers, le FSBL (First Stage Bootloader), U-Boot et le noyau Linux. [Guide d'installation PetaLinux](https://docs.amd.com/r/en-US/ug1144-petalinux-tools-reference-guide/Installation-Steps).
 
-## Génération du Matériel avec Vivado
+## Génération du Matériel
 
 L'objectif est de générer un fichier XSA à partir du projet Vivado pour l'utiliser dans PetaLinux.
 
 !!! info "Qu'est-ce qu'un fichier XSA ?"
     Le fichier XSA contient toutes les informations nécessaires sur le design matériel, y compris les configurations des blocs IP, les contraintes de timing, les périphériques et les connexions internes. Il inclut également le bitstream généré.
 
-Nous utilisons le dépôt officiel de la Zybo Z7-20 disponible sur [GitHub](https://github.com/Digilent/Zybo-Z7) en suivant la documentation [Digilent FPGA Demo Git Repositories](https://digilent.com/reference/programmable-logic/documents/git?redirect=1). Le dépot n'est pas mis à jour pour la version 2023.2 de Vivado, mais Vivado est capable de mettre à jour les IPs automatiquement.
+Nous utilisons le dépôt officiel de la Zybo Z7-20 disponible sur [GitHub](https://github.com/Digilent/Zybo-Z7) en suivant le guide [Digilent FPGA Demo Git Repositories](https://digilent.com/reference/programmable-logic/documents/git?redirect=1). Ce dépôt contient une démonstration de la Zybo Z7-20 avec un design matériel complet et prêt à être utilisé.
+
+!!! warning "Attention"
+    Le dépot n'est pas mis à jour pour la version 2023.2 de Vivado, mais Vivado est capable de mettre à jour les IPs automatiquement.
 
 
 1. Cloner le dépôt :
@@ -37,6 +40,7 @@ Nous utilisons le dépôt officiel de la Zybo Z7-20 disponible sur [GitHub](http
     ```tcl
     set argv ""; source {local root repo}/hw/scripts/checkout.tcl
     ```
+    Veiullez remplacer `{local root repo}` par le chemin absolu du dépôt cloné.
 
 3. Générer le bitstream. Un bitstream est un fichier binaire contenant la configuration complète pour programmer un FPGA. Il décrit les connexions et les configurations des éléments logiques programmables en fonction de votre design matériel dans Vivado.
 
@@ -46,95 +50,102 @@ Nous utilisons le dépôt officiel de la Zybo Z7-20 disponible sur [GitHub](http
         ```
 
         - **Solution Optionelle** : Mettre à jour l'IP `ila_pixclk` pour correspondre à la valeur de la carte Zybo-Z7-20.
+        Cette erreur n'affecte pas la génération du bitstream ou le fonctionnement ultérieur.
 
 5. Exporter le matériel en générant le fichier XSA (Hardware Specification Archive). 
 
 Nous avons maintenant un fichier XSA que nous pouvons utiliser pour générer le système d'exploitation avec PetaLinux.
 
-## Génération du Système d'Exploitation avec PetaLinux
+## Génération du Système d'Exploitation
 
-### Création d'un Nouveau Projet
+### Petalinux
 
-Générer un projet à partir du template Zynq :
+PetaLinux est un outil de développement d'OS embarqué qui simplifie le processus de création d'un système d'exploitation Linux embarqué pour les systèmes Zynq-7000, Zynq UltraScale+ MPSoC et MicroBlaze. L'objectif est d'utiliser le fichier XSA généré précédemment pour créer un système d'exploitation Linux embarqué pour la Zybo Z7-20.
 
-```bash
-petalinux-create --type project --template zynq --name petalinux_zybo
-```
+1.  Créer un nouveau projet
 
-### Configuration du Projet
-
-#### Configuration petalinux
-
-Configurer le projet avec le fichier XSA précédemment généré :
-
-```bash
-cd petalinux_zybo
-petalinux-config --get-hw-description=<chemin_du_fichier_xsa>
-```
-
-- **DTG Settings -> Kernel bootargs -> Add extra boot args** : Ajouter `rw` aux arguments de démarrage à cause d'une erreur dans les arguments générés par PetaLinux (par défaut `ro`).
-- **Image Packaging Configuration -> Root filesystem type** : Changer en `EXT4`.
-- **FPGA Manager -> FPGA Manager** : Activer le FPGA Manager.
-
-#### Configuration du Noyau
-
-```bash
-petalinux-config -c kernel
-```
-
-- **File systems** -> **Ext4 POSIX Access Control Lists** : Activer.
-
-Pour corrigier l'erreur `Failed to set ACL on /var/log/journal/9c71f1e69aeb4ea7b2f7e456bdbed246/user-1000.journal, ignoring: Operation not supported`, activer `CONFIG_EXT4_FS_POSIX_ACL` dans le noyau Linux.
-
-- **File systems** -> **Kernel automounter support (supports v3, v4 and v5)** : Activer.
-
-- **Executable file formats** -> **Kernel support for MISC binaries** : Activer.
-
-### Compiler & Générer les Fichiers Nécessaires
-
-1. Construire le projet :
+    Générer un projet à partir du template Zynq :
 
     ```bash
-    petalinux-build
+    petalinux-create --type project --template zynq --name petalinux_zybo
     ```
 
-    !!! bug "Erreur"
-        ```plaintext
-        [libtinfo.so.5: cannot open shared object file: No such file or directory]
-        ```
+1.  Configurer le projet
 
-        - **Solution** : Sur Ubuntu, installer la bibliothèque requise :
+    Configurer le projet avec le fichier XSA précédemment généré :
+
+    ```bash
+    cd petalinux_zybo
+    petalinux-config --get-hw-description=<chemin_du_fichier_xsa>
+    ```
+
+    veillez à activer les options suivantes :
+
+    - DTG Settings -> Kernel bootargs -> Add extra boot args : Ajouter `rw` aux arguments de démarrage à cause d'une erreur dans les arguments générés par PetaLinux (par défaut `ro`).
+    - Image Packaging Configuration -> Root filesystem type : Changer en `EXT4`.
+    - FPGA Manager -> FPGA Manager : Activer le FPGA Manager.
+
+2.  Configurer le noyau
+
+    ```bash
+    petalinux-config -c kernel
+    ```
+
+    Veillez à activer les options suivantes du noyau :
+
+    - File systems -> Ext4 POSIX Access Control Lists : Activer.
+            
+    - File systems -> Kernel automounter support (supports v3, v4 and v5) : Activer.
+
+    - Executable file formats -> Kernel support for MISC binaries : Activer.
+
+3. Compiler & Générer les Fichiers Nécessaires
+
+    1. compiler le projet :
 
         ```bash
-        sudo apt-get install libtinfo5
+        petalinux-build
         ```
-    
-    !!! warning "Avertissement"
+
+        !!! bug "Erreur"
+            ```plaintext
+            [libtinfo.so.5: cannot open shared object file: No such file or directory]
+            ```
+
+            - **Solution** : Sur Ubuntu, installer la bibliothèque requise :
+
+            ```bash
+            sudo apt-get install libtinfo5
+            ```
+        
+        !!! warning "Avertissement"
+            ```plaintext
+            The busybox:do_fetch sig is computed to be e69f899fec71b53e8a81fc4af8d446ffaed28c1f02b202fa8cb783dce7c0d2e4, but the sig is locked to 4dcaff8c51438430803be8fa00f31476d3041a4c2d22474848e638e2fe9ebaba in SIGGEN_LOCKEDSIGS_t-cortexa9t2hf-neon
+            ```
+
+            - **Note** : Cet avertissement dans la version 2023.2 (et non 2023.1) concernant `busybox:do_fetch sig` est normal et n'affecte pas le processus. [Support Xilinx](https://support.xilinx.com/s/article/000035704).
+
+    2. Générer l'image de démarrage :
+
+        ```bash
+        petalinux-package --boot --u-boot
+        ```
+
+    3. Vous devriez avoir les fichiers suivants dans le répertoire `./images/linux` :
+
         ```plaintext
-        The busybox:do_fetch sig is computed to be e69f899fec71b53e8a81fc4af8d446ffaed28c1f02b202fa8cb783dce7c0d2e4, but the sig is locked to 4dcaff8c51438430803be8fa00f31476d3041a4c2d22474848e638e2fe9ebaba in SIGGEN_LOCKEDSIGS_t-cortexa9t2hf-neon
+        BOOT.BIN
+        boot.scr
+        image.ub
         ```
-
-        - **Note** : Cet avertissement dans la version 2023.2 (et non 2023.1) concernant `busybox:do_fetch sig` est normal et n'affecte pas le processus. [Support Xilinx](https://support.xilinx.com/s/article/000035704).
-
-2. Générer l'image de démarrage :
-
-    ```bash
-    petalinux-package --boot --u-boot
-    ```
-
-3. Vous devriez avoir les fichiers suivants dans le répertoire `./images/linux` :
-
-    ```plaintext
-    BOOT.BIN
-    boot.scr
-    image.ub
-    ```
 
 ### Root File System
 
-Des distributions minimales Debian/Ubuntu sont disponibles sur [eewiki minfs](https://rcn-ee.com/rootfs/eewiki/minfs/). Téléchargez, par exemple, `debian-12.1-minimal-armhf-2023-08-22.tar.xz`.
+Des distributions minimales Debian/Ubuntu sont disponibles sur [eewiki minfs](https://rcn-ee.com/rootfs/eewiki/minfs/). 
+Téléchargez, par exemple, `debian-12.1-minimal-armhf-2023-08-22.tar.xz`. Veillez utiliser la version `armhf`.
+!!! note "Note"
+    Il est possible de générer un RFS personnalisé nottament avec `debootstrap` ou `buildroot`.
 
-Sans ces rootfs pré-construits, vous devriez préparer le vôtre en utilisant `debootstrap`.
 
 ### Préparation de la Carte SD
 
@@ -211,22 +222,22 @@ Sans ces rootfs pré-construits, vous devriez préparer le vôtre en utilisant `
     - Copier `BOOT.BIN`, `boot.scr`, `image.ub` dans la partition boot.
     - Copier le `rootfs ` dans la partition rootfs puis décompresser.
 
-### Démarrage de la Zybo Z7-20
+## Démarrage de la Zybo Z7-20 
 
-1. Insérez la carte SD dans votre Zybo Z7-20 et configurez la configurer pour démarrer depuis la carte SD. ([Digilent Zybo Z7-20 Reference Manual](https://digilent.com/reference/programmable-logic/zybo-z7/reference-manual))
+1.  Insérez la carte SD dans votre Zybo Z7-20 et configurez la carte pour démarrer depuis la carte SD. ([Digilent Zybo Z7-20 Reference Manual](https://digilent.com/reference/programmable-logic/zybo-z7/reference-manual) section 2.1)
 
-  - Insérez la carte microSD dans le connecteur J4.
-  - Attachez une source d'alimentation à la Zybo Z7 et sélectionnez-la en utilisant JP6.
-  - Placez un seul cavalier sur JP5, reliant les deux broches les plus à gauche (étiquetées "SD").
-  - Allumez la carte. La carte démarrera maintenant l'image sur la carte microSD.
+    - Insérez la carte microSD dans le connecteur J4.
+    - Attachez une source d'alimentation à la Zybo Z7 et sélectionnez-la en utilisant JP6.
+    - Placez un seul cavalier sur JP5, reliant les deux broches les plus à gauche (étiquetées "SD").
+    - Allumez la carte. La carte démarrera maintenant l'image sur la carte microSD.
 
-2. Allumez la carte et surveillez le processus de démarrage via une connexion série.
+2.  Allumez la carte et surveillez le processus de démarrage via une connexion série.
 
-  Lancer un terminal série type gtkterm ou autre sur le bon port avec un baud rate de 115200, 8 bits et 1 bit de stop et aucun bit de parité
+    Lancer un terminal série type gtkterm ou autre sur le bon port avec un baud rate de 115200, 8 bits et 1 bit de stop et aucun bit de parité
 
-Normalement, vous devriez voir le démarrage de Linux sur votre Zybo Z7-20. Have fun !
+3.  vous devriez voir le démarrage de Linux sur votre Zybo Z7-20. Have fun !
 
-!!! error "Problèmes Connus"
+!!! failure "Problèmes Connus lors du Démarrage"
     ```plaintext
     Starting init: /bin/sh exists but couldn't execute it (error -5)
     Kernel panic - not syncing: No working init found.  Try passing init= option to kernel. See Linux Documentation/admin-guide/init.rst for guidance.
