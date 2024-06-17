@@ -81,3 +81,6 @@ Avant de pouvoir charger le bitstream dans le FPGA, vous devez générer un fich
      ```
 
 4. Félicitations, vous avez terminé !
+
+!!! info "Programmation FPGA avec DTO"
+    Merci de vous référer à la section correspondante disponible [ici](device_tree.md).

@@ -41,7 +41,7 @@ En suivant cette logique de séparation, les device trees ont plusieurs formats 
 - .dts : pour le device tree principal, pouvant inclure d'autres fichiers
 - .dtsi : pour les device tree à inclure dans le principal avec des "#include"
 
-Les device trees doivent passer par une étape de compilation afin d'être transformés en format binaire, dtc (Device Tree Compiler) est l'outil utilisé.
+Les device trees doivent passer par une étape de compilation afin d'être transformés en format binaire, DTC (Device Tree Compiler) est l'outil utilisé.
 Une fois compilé, un fichier .dtb, pour Device Tree Blob, est créé.
 
 Plus de détails concernant les device trees sont disponibles sur cette présentation (https://bootlin.com/pub/conferences/2021/webinar/petazzoni-device-tree-101/petazzoni-device-tree-101.pdf).
