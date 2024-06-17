@@ -55,6 +55,8 @@ markdown_extensions:
   - pymdownx.snippets:
       auto_append:
         - docs/includes/abbreviations.md
+  - pymdownx.tabbed:
+      alternate_style: true
   - admonition
   - footnotes
   - pymdownx.details

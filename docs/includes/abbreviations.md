@@ -22,3 +22,5 @@
 *[RTL]: Register Transfer Level
 *[VHDL]: VHSIC Hardware Description Language
 *[XDC]: Xilinx Design Constraints
+*[BIF]: Boot Image Format
+*[DTBO]: Device Tree Blob Overlay
