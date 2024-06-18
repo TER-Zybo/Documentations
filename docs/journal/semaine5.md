@@ -23,4 +23,4 @@ Nous avons présenté le projet à M. Thieblot et discuté de la continuation du
 
 ### Vendredi 14/06
 
-Mise à jour des descriptions et des fichiers README sur GitHub pour tous les projets. Ajout d'une branche pour les projets Vivado compatibles avec la version 2023.3, car les projets ont été générés avec la version 2023.2 (version disponible sur les machines de la salle 305).
+Mise à jour des descriptions et des fichiers README sur GitHub pour tous les projets. Ajout d'une branche pour les projets Vivado compatibles avec la version 2023.2, car les projets ont été générés avec la version 2023.1 (version disponible sur les machines de la salle 305).

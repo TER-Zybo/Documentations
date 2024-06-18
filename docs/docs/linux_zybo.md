@@ -79,11 +79,15 @@ PetaLinux est un outil de développement d'OS embarqué qui simplifie le process
     petalinux-config --get-hw-description=<chemin_du_fichier_xsa>
     ```
 
-    veillez à activer les options suivantes :
+    Veillez à activer les options suivantes :
 
-    - DTG Settings -> Kernel bootargs -> Add extra boot args : Ajouter `rw` aux arguments de démarrage à cause d'une erreur dans les arguments générés par PetaLinux (par défaut `ro`).
     - Image Packaging Configuration -> Root filesystem type : Changer en `EXT4`.
     - FPGA Manager -> FPGA Manager : Activer le FPGA Manager.
+    
+    !!! bug "Petalinux 2023.2"
+        Une erreur est présente dans la version 2023.2 de PetaLinux au niveau des bootargs, `ro` est présent à la place de `rw`. 
+        
+        Une solution possible est de rajouter `rw` aux bootargs dans DTG Settings -> Kernel bootargs -> Add extra boot args.
 
 2.  Configurer le noyau
 
