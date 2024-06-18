@@ -230,7 +230,7 @@ Un Device Tree Overlay pour le Zynq ne se génère pas automatiquement, il faut 
 
 ### Prérequis
 
-- Device Tree Compiler, fourni avec Vitis et sinon disponible en clonant le répertoire git https://git.kernel.org/pub/scm/utils/dtc/dtc.git suivi d'un make
+- Device Tree Compiler, fourni avec Vitis ou disponible depuis ce [repository](https://git.kernel.org/pub/scm/utils/dtc/dtc.git).
 
 ### Procédure
 
