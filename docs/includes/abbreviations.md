@@ -24,3 +24,5 @@
 *[XDC]: Xilinx Design Constraints
 *[BIF]: Boot Image Format
 *[DTBO]: Device Tree Blob Overlay
+*[GCC]: GNU Compiler Collection
+*[DTB]: Device Tree Blob

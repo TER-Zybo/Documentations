@@ -1,52 +1,56 @@
-# Device Tree 
+# Device Tree et Device Tree Overlay
 
 ## Introduction
 
-Le Device Tree permet de maintenir le noyau Linux générique, sans avoir besoin de coder des détails matériels spécifiques dans le noyau lui-même. Cela permet de porter le même noyau sur différentes plateformes matérielles, simplement en modifiant le Device Tree. Cette flexibilité est cruciale pour le développement et la maintenance de systèmes embarqués, étant donné la nature des processeurs ARM et RISC-V souvent utilisés dans le domaine.
+Le Device Tree permet de maintenir le noyau Linux générique, sans avoir besoin d'intégrer des détails matériels spécifiques dans le noyau lui-même. Cette flexibilité permet de porter le même noyau sur différentes plateformes matérielles en modifiant simplement le Device Tree. Cette caractéristique est cruciale pour le développement et la maintenance de systèmes embarqués.
 
-## Syntaxe
+### Device Tree
 
-La syntaxe est la suivante (https://elinux.org/Device_Tree_Usage) :
+Les Device Trees permettent de visualiser les différents périphériques, composants et registres accessibles par le processeur sous forme d'une structure arborescente. Cette approche organise les informations de manière hiérarchique, facilitant ainsi l'identification et l'accès aux composants spécifiques du système.
 
-```
-/dts-v1/;
+La syntaxe utilisée pour définir les Device Trees est la suivante ([elinux.org](https://elinux.org/Device_Tree_Usage)) :
 
-/ {
-    node1 {
-        a-string-property = "A string";
-        a-string-list-property = "first string", "second string";
-        // hex is implied in byte arrays. no '0x' prefix is required
-        a-byte-data-property = [01 23 34 56];
-        child-node1 {
-            first-child-property;
-            second-child-property = <1>;
-            a-string-property = "Hello, world";
+!!! example "Exemple de Device Tree"
+    ```
+    /dts-v1/;
+
+    / {
+        node1 {
+            a-string-property = "A string";
+            a-string-list-property = "first string", "second string";
+            // hex is implied in byte arrays. no '0x' prefix is required
+            a-byte-data-property = [01 23 34 56];
+            child-node1 {
+                first-child-property;
+                second-child-property = <1>;
+                a-string-property = "Hello, world";
+            };
+            child-node2 {
+            };
         };
-        child-node2 {
+        node2 {
+            an-empty-property;
+            a-cell-property = <1 2 3 4>; /* each number (cell) is a uint32 */
+            child-node1 {
+            };
         };
     };
-    node2 {
-        an-empty-property;
-        a-cell-property = <1 2 3 4>; /* each number (cell) is a uint32 */
-        child-node1 {
-        };
-    };
-};
-```
+    ```
 
-Elle permet de visualiser les différents devices, composants et registres qui seront accessibles par le processeur sous forme d'arbre.
-Il est possible d'éclater un Device Tree et de le séparer en plusieurs fichiers afin de les combiner plus tard en passant par des `#include`. L'assemblage de ces fichiers peut être réalisé en passant par GCC.
+Les Device Trees doivent être compilés pour être transformés en un format binaire utilisable par le système. Cette étape de compilation est effectuée à l'aide de l'outil Device Tree Compiler (DTC). Le résultat de cette compilation est un Device Tree Blob (DTB) sous l'extension `.dtb`.
 
-En suivant cette logique de séparation, les Device Trees ont plusieurs formats :
-- .dts : pour le Device Tree principal, pouvant inclure d'autres fichiers
-- .dtsi : pour les Device Tree à inclure dans le principal avec des `#include`
+Plus de détails concernant les Device Trees sont disponibles sur [Device Tree 101](https://bootlin.com/pub/conferences/2021/webinar/petazzoni-device-tree-101/petazzoni-device-tree-101.pdf), une présentation de [Bootlin](https://bootlin.com/).
 
-Les Device Trees entiers, donc les .dts sans `#include`, doivent passer par une étape de compilation afin d'être transformés en format binaire, DTC (Device Tree Compiler) est l'outil utilisé.
-Une fois compilé, un fichier .dtb, pour Device Tree Blob, est créé.
+!!! note "Séparation des fichiers"
+    Il est souvent nécessaire de séparer un Device Tree en plusieurs fichiers. Cette séparation se fait en utilisant les formats suivants :
 
-Plus de détails concernant les Device Trees sont disponibles sur cette [présentation](https://bootlin.com/pub/conferences/2021/webinar/petazzoni-device-tree-101/petazzoni-device-tree-101.pdf).
+    - `.dts` (Device Tree Source) : fichier principal du Device Tree, pouvant inclure d'autres fichiers.
+    - `.dtsi` (Device Tree Include) : fichiers à inclure dans le fichier principal .dts via des directives #include.
 
-## Overlays
+    L'assemblage de ces fichiers séparés est réalisé en utilisant le préprocesseur GCC, permettant ainsi de combiner les différentes parties en un seul fichier cohérent (fichier `.dts` final sans #include).
+
+
+### Device Tree Overlay
 
 Les Device Trees décrivent des composants pour que le système puisse les reconnaître et les utiliser, mais comment faire si l'on veut ajouter un composant alors qu'un Device Tree est déjà créé et utilisé et qu'il est impossible d'éteindre le système ?
 
@@ -108,7 +112,7 @@ Ces deux exemples sont fonctionellement équivalents.
 
 Cette documentation décrit les étapes pour générer un Device Tree Source (DTS) à partir d'un fichier XSA en utilisant XSCT (Xilinx Software Command-line Tool).
 
-## Encodeur
+### Encodeur
 
 Le Device Tree de base est déjà généré par PetaLinux dès lors qu'on lui fournit un fichier XSA, le travail que nous avons réalisé se repose donc surtout sur l'overlay. 
 
