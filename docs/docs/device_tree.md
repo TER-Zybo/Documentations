@@ -54,9 +54,10 @@ La solution se trouve dans les Device Tree Overlays. Ces morceaux de Device Tree
 
 Les fichiers de Device Tree Overlay sont la majorité du temps en format .dtso et .dtbo pour la version compilée. Notez qu'il est possible aussi de voir des overlays en .dtsi, ne vous fiez donc pas uniquement au format de fichier. La principale manière de les différencier se trouve dans leur syntaxe et la mention de `/plugin/` au début.
 
+
 Deux syntaxes existent, une nouvelle et une ancienne :
 
-!!! note "Ancienne syntaxe"
+=== "Ancienne"
     ```
     /dts-v1/;
     /plugin/;
@@ -84,24 +85,23 @@ Deux syntaxes existent, une nouvelle et une ancienne :
 
     };
     ```
-
-!!! note "Nouvelle syntaxe"
+=== "Nouvelle"
     ```
     /dts-v1/;
     /plugin/;
 
-        &fpga_full {
-            firmware-name = "enc_wrapper.bit.bin";
-        };
+    &fpga_full {
+        firmware-name = "enc_wrapper.bit.bin";
+    };
 
-        &amba {
-            PetaENC_0: PetaENC@40000000 {
-                clock-names = "s_axi_aclk";
-                clocks = <&clkc 15>;
-                compatible = "generic-uio";
-                reg = <0x40000000 0x1000>;
-            };
+    &amba {
+        PetaENC_0: PetaENC@40000000 {
+            clock-names = "s_axi_aclk";
+            clocks = <&clkc 15>;
+            compatible = "generic-uio";
+            reg = <0x40000000 0x1000>;
         };
+    };
     ```
 
 Ces deux exemples sont fonctionellement équivalents.
