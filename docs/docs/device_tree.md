@@ -11,7 +11,7 @@ Les Device Trees permettent de visualiser les différents périphériques, compo
 La syntaxe utilisée pour définir les Device Trees est la suivante ([elinux.org](https://elinux.org/Device_Tree_Usage)) :
 
 !!! example "Exemple de Device Tree"
-    ```
+    ```dts
     /dts-v1/;
 
     / {
