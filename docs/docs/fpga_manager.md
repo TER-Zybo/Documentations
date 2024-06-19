@@ -141,11 +141,12 @@ Suivez les étapes ci-dessous pour mettre à jour le FPGA en utilisant FPGA Mana
             !!! note "Remarque"
                 Lorsque vous appliquez un DTBO, le FPGA est automatiquement programmé avec le bitstream spécifié dans le DTO.
 
-        5. supprimez le DTBO :
+        5. Félicitations, votre FPGA a été mis à jour avec succès en utilisant un DTO !
+        
+        !!! tip "Suppression du DTBO"
+            Pour supprimer le DTBO :
 
             ```bash
             cd /configfs/device-tree/overlays/
             rmdir full
             ```
-
-        6. Félicitations, votre FPGA a été mis à jour avec succès en utilisant un DTO !

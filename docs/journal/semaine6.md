@@ -28,10 +28,13 @@ Documentation                             --
 
 ### Mercredi 19/06
 
-Finalisation de la documentation. YEY !
+- Finalisation de la documentation. YEY !
 ```	
 Documentation                             --
     Projets                               --
         PmodENC - Linux application       OK
 ```
-Address MAC : OK
+- Address MAC : OK
+- projet vivado PmodENC_Linux mis à jour pour vivado 2023.2
+- fix bug l'ip PetaENC version 2023.2
+- test de l'ensemble des documentations depuis le début pour trouver des erreurs ou des oublis
