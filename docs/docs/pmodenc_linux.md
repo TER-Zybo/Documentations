@@ -1,17 +1,19 @@
-# Programme UIO pour PmodENC sous Linux
+# Reprogrammation FPGA et application UIO pour PmodENC sous Linux
 
 ## Introduction
 
-Ce projet a pour but de récupérer les données du compteur de notre [bloc IP personnalisé](./pmodenc_ip.md) en passant par le driver UIO de Linux sur la carte Zybo Z7-20. Avoir Linux sur la carte est un prérequis, vous pouvez suivre notre [guide](./linux_zybo.md) pour déployer Debian dessus ou utiliser un autre RFS.
+Ce projet a pour but de récupérer les données du compteur de notre [bloc IP personnalisé](./pmodenc_ip.md) en passant par le driver UIO de Linux sur la carte Zybo Z7-20, et ce en reprogrammant le FPGA. Le Zynq n'a donc pas l'encodeur et son bloc IP ni dans le FPGA ni dans le [Device Tree](./device_tree.md), un [Device Tree Overlay](./device_tree.md#device-tree-overlay) est donc utilisé en plus d'un nouveau bitstream à implémenter avec le [FPGA Manger](./fpga_manager.md). Avoir Linux sur la carte est un prérequis, vous pouvez suivre notre [guide](./linux_zybo.md) pour déployer Debian dessus ou utiliser un autre RFS.
 
 Ce projet est disponible sur [GitHub](https://github.com/TER-Zybo/PmodENC_Linux).
 
 ## Drivers
 
-!!! info "WIP"
+Pour faire fonctionner l'encodeur par UIO, il est nécessaire d'avoir le driver correspondant. Quelques modifications sont à faire dans PetaLinux initialement puis un transfert des modules kernel vers le RFS est à réaliser.
+
+!!! info "Custom RFS"
     Cette partie ne s'applique que si vous utilisez PetaLinux avec un RFS autre que celui fourni, comme vu dans notre guide, et/ou si le RFS utilisé ne dispose pas des drivers UIO.
 
-Pour faire fonctionner l'encodeur par UIO, il est nécessaire d'avoir le driver correspondant. Quelques modifications sont à faire dans PetaLinux initialement puis un transfert des modules kernel vers le RFS est à réaliser.
+    Si vous utilisez l'image proposée par PetaLinux, assurez-vous d'avoir les options de l'étape 3 activées, vous pouvez ignorer le transfert dans le RFS et transférer votre image normalement.
 
 ### Prérequis
 
@@ -42,4 +44,12 @@ Pour faire fonctionner l'encodeur par UIO, il est nécessaire d'avoir le driver 
    
 8.  Se diriger dans le répertoire contenant les modules kernel et les drivers : `work/zynq_generic_7z020-xilinx-linux-gnueabi/linux-xlnx/6.1.30-xilinx-v2023.2+gitAUTOINC+a19da02cf5-r0/image/lib/modules/`. Le nom des dossiers peut varier mais suit globalement toujours la même logique.
 
-9. 
+9.  Déplacer le dossier `6.1.30-xilinx-v2023.2`, dont le nom peut varier selon la version du kernel et de PetaLinux, dans le dossier `lib/modules` de votre RFS.
+    
+10.  La carte est désormais prête au niveau des drivers.
+
+## Bitstream 
+
+### Introduction
+
+
