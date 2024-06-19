@@ -37,7 +37,7 @@ nav:
       - PmodENC - VHDL personnalisé: docs/pmodenc_vhdl.md
       - PmodENC - Baremetal application: docs/pmodenc_baremetal.md
       - PmodENC - Bloc IP personnalisé: docs/pmodenc_ip.md
-      - WIP PmodENC - Linux application: docs/pmodenc_linux.md
+      - PmodENC - Linux application: docs/pmodenc_linux.md
     - Rappels:
       - Activation SSH: docs/ssh_activation.md
   - Journal de bord:

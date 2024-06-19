@@ -25,3 +25,12 @@ Documentation                             --
     Projets                               --
         WIP PmodENC - Linux application   WIP
 ```
+
+### Mercredi 19/06
+
+Finalisation de la documentation. YEY !
+```	
+Documentation                             --
+    Projets                               --
+        PmodENC - Linux application       OK
+```
