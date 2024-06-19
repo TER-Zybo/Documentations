@@ -349,7 +349,7 @@ Téléchargez, par exemple, `debian-12.1-minimal-armhf-2023-08-22.tar.xz`. Veill
 
     Lancer un terminal série type gtkterm ou autre sur le bon port avec un baud rate de 115200, 8 bits et 1 bit de stop et aucun bit de parité
 
-3.  vous devriez voir le démarrage de Linux sur votre Zybo Z7-20. Have fun !
+3.  Vous devriez voir le démarrage de Linux sur votre Zybo Z7-20. Have fun !
 
 !!! failure "Problèmes Connus lors du Démarrage"
     ```plaintext

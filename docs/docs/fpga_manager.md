@@ -22,11 +22,11 @@ Un bitstream est un fichier qui contient les informations nécessaires pour conf
 
 ### Génération d'un Fichier BIN à partir d'un Fichier BIT
 
-bootgen est un outil fourni par Xilinx qui permet de générer des fichiers BIN à partir de fichiers BIF (Boot Image Format).
+bootgen est un outil fourni par Xilinx qui permet de générer des fichiers BIN à partir de fichiers BIF (Boot Image Format). L'outil est fourni avec Vitis de base et n'est pas disponible directement en open-source. Il se situe généralement dans le dossier d'installation de Vitis, par exemple avec la version 2023.1 `Vitis/2023.1/bin/`.
 
-Pour générer un fichier BIN à partir d'un fichier BIT, suivez ces étapes :
+Pour générer un fichier BIN à partir d'un fichier BIT, nommé ici `project.bit`, suivez ces étapes :
 
-1. Créez un fichier de configuration BIF nommé `project.bif` avec le contenu suivant :
+1. Créez un fichier de configuration BIF nommé `project.bif` dans le même répertoire que votre fichier `project.bit` avec le contenu suivant :
 
     ```plaintext title="project.bif"
     all:
@@ -37,7 +37,7 @@ Pour générer un fichier BIN à partir d'un fichier BIT, suivez ces étapes :
 
     > Plus d'informations sur le format BIF sont disponibles dans la [documentation Xilinx](https://docs.amd.com/r/en-US/ug1400-vitis-embedded/Boot-Image-Format-BIF).
 
-2. Utilisez la commande `bootgen` pour générer le fichier BIN :
+2. Utilisez la commande `bootgen`, situé par exemple avec la version 2023.1 dans `Vitis/2023.1/bin/`, pour générer le fichier BIN dans le même répertoire que le BIF :
 
     ```bash
     bootgen -image project.bif -arch zynq -process_bitstream bin

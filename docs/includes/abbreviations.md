@@ -26,3 +26,6 @@
 *[DTBO]: Device Tree Blob Overlay
 *[GCC]: GNU Compiler Collection
 *[DTB]: Device Tree Blob
+*[UIO]: Userspace I/O
+*[BD]: Block Design
+*[DT]: Device Tree
