@@ -88,6 +88,23 @@ PetaLinux est un outil de développement d'OS embarqué qui simplifie le process
         
         Une solution possible est de rajouter `rw` aux bootargs dans DTG Settings -> Kernel bootargs -> Add extra boot args.
 
+    ??? tip "Définir l'adresse MAC dans Petalinux"
+        Dans le menu de configuration Petalinux (`petalinux-config`), naviguez vers `Subsystem > Auto Hardware Settings > Ethernet Settings` pour définir l'adresse MAC de l'interface Ethernet. Vous avez deux principales options pour définir l'adresse MAC :
+
+        1.  **Spécifier une adresse MAC statique :**
+            - Entrez directement l'adresse MAC souhaitée dans le champ `Ethernet MAC address`.
+
+        2.  **Activer la génération d'une adresse MAC aléatoire :**
+            - Activez l'option `Randomise MAC address`. Cela vous permet de définir un modèle pour l'adresse MAC en utilisant le caractère `?` pour spécifier des valeurs aléatoires.
+            - Exemple : `00:0a:35:00:??:??` – Ce modèle fixe les quatre premiers octets et rend les deux derniers octets aléatoires.
+
+        **Remarque :** Si vous avez configuré une adresse MAC dans U-Boot, l'adresse MAC de l'environnement U-Boot aura la priorité sur la configuration Petalinux.
+
+        **Remarque :** Lors de l'utilisation de l'option `Randomise MAC address`, l'interface se verra attribuer une adresse MAC lors du premier démarrage et conservera cette adresse pour les démarrages suivants.
+
+        Pour plus d'informations détaillées, consultez le [Guide de Référence des Outils Petalinux de AMD (UG1144)](https://docs.amd.com/r/en-US/ug1144-petalinux-tools-reference-guide/Building-Device-Tree-Overlays-for-PS).
+
+
 2.  Configurer le noyau
 
     ```bash
