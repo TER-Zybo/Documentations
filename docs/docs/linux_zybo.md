@@ -30,7 +30,6 @@ Nous utilisons le dépôt officiel de la Zybo Z7-20 disponible sur [GitHub](http
     ```bash
     git clone --recursive https://github.com/Digilent/Zybo-Z7
     cd Zybo-Z7
-    git submodule update --init --recursive
     git checkout remotes/origin/20/Petalinux/master
     git submodule update --init --recursive
     ```
