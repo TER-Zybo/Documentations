@@ -89,7 +89,7 @@ PetaLinux est un outil de développement d'OS embarqué qui simplifie le process
         Une solution possible est de rajouter `rw` aux bootargs dans DTG Settings -> Kernel bootargs -> Add extra boot args.
 
     ??? tip "Définir l'adresse MAC dans Petalinux"
-        Dans le menu de configuration Petalinux (`petalinux-config`), naviguez vers `Subsystem > Auto Hardware Settings > Ethernet Settings` pour définir l'adresse MAC de l'interface Ethernet. Vous avez deux principales options pour définir l'adresse MAC :
+        Dans le menu de configuration Petalinux (`petalinux-config`), naviguez vers `Subsystem AUTO Hardware Settings > Ethernet Settings` pour définir l'adresse MAC de l'interface Ethernet. Vous avez deux principales options pour définir l'adresse MAC :
 
         1.  **Spécifier une adresse MAC statique :**
             - Entrez directement l'adresse MAC souhaitée dans le champ `Ethernet MAC address`.
