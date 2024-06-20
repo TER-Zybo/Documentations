@@ -104,7 +104,7 @@ Le DTO utilisé ici est spécifique à notre bloc IP et est expliqué plus en d�
   
 ### Étapes
 
-1.  Suivre la procédure de [compilation d'un DTO](./device_tree.md#procedure-1).
+1.  Suivre la procédure de [compilation d'un DTO](./device_tree.md#procedure_1).
 
 2.  Transférer le .dtbo résultant sur la Zybo, dans le dossier personnel `/home/[NOM D'UTILISATEUR]` par exemple.
 
@@ -130,6 +130,8 @@ Toutefois, l'application doit être compilé pour l'architecture visée, en l'oc
 3.  La rendre éxecutable en faisant `chmod +x check_uio_value`.
 
 ## Reprogrammation et test de l'encodeur
+
+### Introduction
 
 Tous les élements nécessaires sont désormais réunis, il ne manque plus qu'à réaliser la reprogrammation et tester l'encodeur avec l'application précédemment compilée.
 
