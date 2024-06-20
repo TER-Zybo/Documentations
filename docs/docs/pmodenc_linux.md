@@ -2,92 +2,125 @@
 
 ## Introduction
 
-Ce projet a pour but de récupérer les données du compteur de notre [bloc IP personnalisé](./pmodenc_ip.md) en passant par le driver UIO de Linux sur la carte Zybo Z7-20, et ce en reprogrammant le FPGA. Le Zynq n'a donc pas l'encodeur et son bloc IP ni dans le FPGA ni dans le [Device Tree](./device_tree.md), un [Device Tree Overlay](./device_tree.md#device-tree-overlay) est donc utilisé en plus d'un nouveau bitstream à implémenter avec le [FPGA Manager](./fpga_manager.md). Avoir Linux sur la carte est un prérequis, vous pouvez suivre notre [guide](./linux_zybo.md) pour déployer Debian dessus ou utiliser un autre RFS.
+Ce projet vise à récupérer les données du compteur de notre [bloc IP personnalisé](./pmodenc_ip.md) via le driver UIO de Linux sur la carte Zybo Z7-20, en reprogrammant le FPGA. Le Zynq n'inclut pas initialement l'encodeur et son bloc IP dans le FPGA ni dans le [Device Tree](./device_tree.md). Pour pallier cela, un [Device Tree Overlay](./device_tree.md#device-tree-overlay) est utilisé, accompagné d'un nouveau bitstream à implémenter avec le [FPGA Manager](./fpga_manager.md). **Avoir Linux installé sur la carte est un prérequis**. Vous pouvez suivre notre [guide](./linux_zybo.md) pour déployer Debian ou utiliser un autre RFS.
 
 Ce projet est disponible sur [GitHub](https://github.com/TER-Zybo/PmodENC_Linux).
 
+---
+
 ## Drivers
 
-Pour faire fonctionner l'encodeur par UIO, il est nécessaire d'avoir le driver correspondant. Quelques modifications sont à faire dans PetaLinux initialement puis un transfert des modules kernel vers le RFS est à réaliser.
+### Introduction
+
+Pour faire fonctionner l'encodeur via UIO, il est nécessaire de disposer du driver approprié. Cela implique d'apporter quelques modifications initiales dans PetaLinux, puis de transférer les modules du kernel vers le RFS.
 
 !!! info "Custom RFS"
-    Cette partie ne s'applique que si vous utilisez PetaLinux avec un RFS autre que celui fourni, comme vu dans notre guide, et/ou si le RFS utilisé ne dispose pas des drivers UIO.
-
-    Si vous utilisez l'image proposée par PetaLinux, assurez-vous d'avoir les options de l'étape 3 activées, vous pouvez ignorer le transfert dans le RFS et transférer votre image normalement.
+    Le RFS fourni par PetaLinux lors de la génération du projet contient déjà les drivers UIO. Cette partie ne s'applique que si vous utilisez un RFS autre que celui fourni par PetaLinux, comme vu dans notre guide. Cependant assurez-vous d'avoir les options de l'étape 3 activées.
 
 ### Prérequis
 
-- Projet PetaLinux avec son XSA 
+- Projet PetaLinux avec son XSA
+
+> Pour plus d'informations sur la génération du projet PetaLinux, veuillez consulter notre [guide](./linux_zybo.md).
 
 ### Étapes
 
-1.  Changer la configuration PetaLinux afin de garder le dossier `linux-xlnx` contenant les différents artéfacts du kernel.
-   
-    Il suffit pour cela de rajouter `RM_WORK_EXCLUDE += "linux-xlnx"` dans le fichier `[PETALINUX_PROJECT]/project-spec/meta-user/conf/petalinuxbsp.conf`.
+1.  Modifier la configuration PetaLinux pour conserver le dossier `linux-xlnx` contenant les différents artéfacts du kernel.
+    
+    - Ajouter `RM_WORK_EXCLUDE += "linux-xlnx"` dans le fichier `petalinuxbsp.conf` disponible dans le dossier `project-spec/meta-user/conf/` du projet PetaLinux.
 
-2.  Accéder à la configuration du kernel avec la commmande `petalinux-config -c kernel` dans le dossier du projet.
+    ??? note "Les artéfacts du kernel"
+        Les artefacts du kernel sont les fichiers générés lors de la compilation du noyau Linux, tels que les modules du kernel, les fichiers de configuration, et d'autres fichiers nécessaires au bon fonctionnement du système d'exploitation.
 
-3.  Activer les drivers UIO.
-   
-    Les options à activer sont :
+2.  Accéder à la configuration du kernel et activer les drivers UIO.
+
+    ```
+    petalinux-config -c kernel
+    ```
+
+    Veillez à activer les options suivantes :
 
     - Device Drivers -> Userspace I/O drivers -> Userspace I/O platform driver with generic IRQ handling
     - Device Drivers -> Userspace I/O drivers -> Userspace platform driver with generic irq and dynamic memory 
 
-4.  Quitter `petalinux-config -c kernel` et accéder à la configuration PetaLinux avec `petalinux-config` dans le dossier du projet.
+3.  Modifier les bootargs du kernel.
 
-5.  Noter le dossier temporaire créé par PetaLinux, le chemin de ce répertoire se trouve en allant dans :
+    ```
+    petalinux-config
+    ```
+
+    - DTG Settings -> Kernel Bootargs -> Add extra boot args : Ajouter `uio_pdrv_genirq.of_id=generic-uio`.
+
+    !!! tip "TMPDIR emplacement"
+        Nous vous recommandons de noter le chemin du dossier temporaire créé par PetaLinux, car il sera nécessaire pour récupérer les modules du kernel.
+        Pour connaître le chemin du dossier temporaire créé par PetaLinux, allez dans :
+        
+        - Yocto Settings -> TMPDIR Location -> TMPDIR Location
+
+4.  Build le kernel. 
     
-    - Yocto Settings -> TMPDIR Location -> TMPDIR Location
+    ```
+    petalinux-build -c kernel
+    ```
 
-6.  Toujours dans `petalinux-config`, modifier les bootargs du kernel en rajoutant `uio_pdrv_genirq.of_id=generic-uio` dans :
-    
-    - DTG Settings -> Kernel Bootargs -> Add extra boot args
+5.  Transférer le kernel vers la partition de BOOT de la carte SD.
 
-7.  Sauvegarder la configuration et quitter `petalinux-config`.
+    > plus d'informations sur le transfert du kernel [ici](./linux_zybo.md#preparation-de-la-carte-sd).
 
-8.  Build le kernel avec `petalinux-build -c kernel`.
 
-9.  Transférer le kernel `image.ub` situé dans `[PETALINUX_PROJECT]/images/linux` vers la partition de boot de votre Zybo.
+10. Copier le dossier des modules du kernel dans le RFS.
 
-10. Ouvrir le dossier temporaire noté précédemment.
-   
-11. Se diriger dans le répertoire contenant les modules kernel et les drivers : `work/zynq_generic_7z020-xilinx-linux-gnueabi/linux-xlnx/6.1.30-xilinx-v2023.2+gitAUTOINC+a19da02cf5-r0/image/lib/modules/`. Le nom des dossiers peut varier mais suit globalement toujours la même logique.
+    Accéder au TMPDIR généré par petalinux et se rendre dans le répertoire contenant les artefacts du kernel.
 
-12. Déplacer le dossier `6.1.30-xilinx-v2023.2`, dont le nom peut varier selon la version du kernel et de PetaLinux, dans le dossier `lib/modules` de votre RFS.
-    
-13.  La carte est désormais prête au niveau des drivers.
+    ```
+    cd [TMPDIR]/work/zynq_generic_7z020-xilinx-linux-gnueabi/linux-xlnx/6.1.30-xilinx-v2023.2+gitAUTOINC+a19da02cf5-r0/image/lib/modules/
+    ```
+
+    Copier le dossier `6.1.30-xilinx-v2023.2` dans le dossier `lib/modules` de votre RFS. Le nom du dossier peut varier en fonction de la version du kernel et de PetaLinux.
+
+    !!! warning "Chemin des modules et nom du dossier"
+        Le chemin des modules et le nom du dossier peuvent varier en fonction de la version du kernel et de PetaLinux.
+
+13.  Félicitations, les drivers UIO sont désormais disponibles dans votre RFS.
+
+---
 
 ## Bitstream 
 
 ### Introduction
 
-Pour reprogrammer le FPGA, il est nécessaire d'avoir un bitstream contenant à la fois le BD de base, celui contenant le PS, de votre Zybo en plus des blocs IP et modules RTL que vous désirez rajouter. Ici, le seul bloc IP rajouté à l'occasion de notre projet est le [nôtre](./pmodenc_ip.md), contenant un compteur 4 bits fonctionnant grâce à l'encodeur. La suite de cette partie part donc du principe que seul ce bloc IP est rajouté et que le BD de base est celui du projet récupéré durant l'étape 2 de notre guide [Linux](./linux_zybo.md#generation-du-materiel). 
+Pour reprogrammer le FPGA, vous devez disposer d'un bitstream comprenant le block design utilisé précédemment pour générer le projet Petalinux, ainsi que les blocs IP et modules RTL que vous souhaitez ajouter. 
 
-Il est par ailleurs considéré que le projet avec le BD final est déjà réalisé, vous pouvez récupérer celui que nous utilisons sur le [repository git](https://github.com/TER-Zybo/PmodENC_Linux) de ce projet.
+Dans le cadre de notre projet, le seul bloc IP ajouté est [PetaENC](./pmodenc_ip.md).
 
 ### Prérequis
 
-- Projet avec le BD final, disponible sur le [repository git](https://github.com/TER-Zybo/PmodENC_Linux)
-- Bloc IP personnalisé
-- Vivado 2023.1
-- Vitis 2023.1
+La procédure décrite ci-dessous suppose que :
+
+1. Le block design de base est celui récupéré lors de l'étape [Génération du Matériel](./linux_zybo.md) de notre guide Linux.
+2. Le bloc IP ajouté est [PetaENC](./pmodenc_ip.md) disponible sur [github](https://github.com/TER-Zybo/PetaENC_IP).
+
+!!! tip "Pret à l'emploi"
+    Si vous souhaitez utiliser le projet avec le block design final, vous pouvez le récupérer sur [github](https://github.com/TER-Zybo/PmodENC_Linux).
+
 
 ### Étapes
 
 1.  Ouvrir le projet `hw_with_enc` dans Vivado, disponible en clonant le [repository git](https://github.com/TER-Zybo/PmodENC_Linux).
 
-2.  S'assurer que le bloc IP personnalisé est bien dans le catalogue, voir [Ajout du Bloc IP à Vivado](./pmodenc_ip.md#ajout-du-bloc-ip-a-vivado) dans le guide sur le [bloc IP](./pmodenc_ip.md).
+2.  S'assurer que le bloc IP personnalisé est bien dans le catalogue, voir [Ajout du Bloc IP à Vivado](./pmodenc_ip.md#ajout-du-bloc-ip-a-vivado) pour plus d'informations.
 
 3.  Réaliser la synthèse, l'implémentation et la génération du bitstream.
 
-4.  Exporter le bitstream dans un endroit au choix en faisant clic-droit sur l'implémentation dans `Design Runs` dans la section `Project Manager` puis `Export Bitstream File...`.
+4.  Exporter le bitstream en faisant clic-droit sur l'implémentation dans la section `Project Manager > Design Runs` puis `Export Bitstream File...`.
 
 5.  Suivre les indications de la section [Génération d'un Fichier BIN à partir d'un Fichier BIT](./fpga_manager.md#generation-dun-fichier-bin-a-partir-dun-fichier-bit) de la documention sur le [FPGA Manager](./fpga_manager.md) afin de transformer le BIT en BIN.
 
-6.  Transférer le BIN sur la Zybo, dans le dossier personnel `/home/[NOM D'UTILISATEUR]` par exemple.
+6.  Transférer le BIN sur l'envirronement linux de la Zybo.
 
-7.  Renommez le BIN généré dans la section [Bitstream](#bitstream) en `enc_wrapper.bit.bin` étant donné que le DTO pointe vers ce nom de fichier.
+7.  Félicitations, le bitstream est prêt à être utilisé pour reprogrammer le FPGA.
+
+---
 
 ## Overlay
 
@@ -99,35 +132,51 @@ Le DTO utilisé ici est spécifique à notre bloc IP et est expliqué plus en d�
 
 ### Prérequis
 
-- Fichier source du DTO en .dtso, disponible sur le [repository git](https://github.com/TER-Zybo/PmodENC_Linux) du projet ou dans la section [Exemple DTO pour un encodeur](./device_tree.md#exemple-dto-pour-un-encodeur) dans la documentation sur les [DT](./device_tree.md).
-- DTC, fourni avec Vitis, dans `Vitis/2023.1/bin/` pour la version 2023.1 par exemple, ou peut être téléchargé depuis le repository officiel [ici](https://git.kernel.org/pub/scm/utils/dtc/dtc.git).
+- Fichier source `.dtso` du DTO, disponible sur [github](https://github.com/TER-Zybo/PmodENC_Linux) du projet.
+- Device Tree Compiler (DTC) pour compiler le DTO. Disponible dans vitis (`Vitis/2023.1/bin/` pour la versin 2023.1) ou depuis le [repository officiel](https://git.kernel.org/pub/scm/utils/dtc/dtc.git)
   
 ### Étapes
 
+!!! note "Correspondance des noms"
+    Assurez-vous que le nom du fichier `.bit.bin` généré dans la section précédente correspond à celui utilisé dans le DTO. Veillez modifier le DTO si nécessaire.
+
 1.  Suivre la procédure de [compilation d'un DTO](./device_tree.md#procedure_1).
 
-2.  Transférer le .dtbo résultant sur la Zybo, dans le dossier personnel `/home/[NOM D'UTILISATEUR]` par exemple.
+2.  Transférer le `.dtbo` résultant sur l'environnement linux de la Zybo.
+
+3. Félicitations, le DTO est prêt à être utilisé pour reprogrammer le FPGA.
+
+
+---
 
 ## Application
 
 ### Introduction
 
-Une fois que les drivers, le bitstream en format BIN et le DTO compilé sont disponibles sur la Zybo, la reprogrammation est possible. Toutefois, une application pour tester le bon fonctionnement de notre encodeur est toujours nécessaire. Une simple application utilisant le driver UIO est donc disponible dans le [repository git](https://github.com/TER-Zybo/PmodENC_Linux) de notre projet dans le dossier `app`.
+Une fois que les drivers, le bitstream au format BIN, et le DTO compilé sont disponibles sur la Zybo, la reprogrammation du FPGA peut être effectuée. Cependant, il est également nécessaire de disposer d'une application pour tester le bon fonctionnement de notre encodeur. Une application simple utilisant le driver UIO est disponible dans le dossier `app` du [repository git](https://github.com/TER-Zybo/PmodENC_Linux) de notre projet.
 
-Toutefois, l'application doit être compilé pour l'architecture visée, en l'occurence `armhf`. L'utilisation d'un cross-compiler est donc nécessaire.
+Cette application doit être compilée pour l'architecture cible, en l'occurrence **armhf**. Il est donc nécessaire d'utiliser un cross-compiler pour effectuer cette compilation.
 
 ### Prérequis
 
-- Fichier .c de l'application `check_uio_value`, disponible dans `app` dans notre [repository git](https://github.com/TER-Zybo/PmodENC_Linux).
-- Cross-compiler GCC `armhf`, tel que celui disponible sur le [site officiel de développement ARM](https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads), assurez-vous de télécharger une version ciblant AArch32 GNU/Linux avec hard float (arm-none-linux-gnueabihf).
+- Fichier `.c` de l'application `check_uio_value`, disponible dans `app` dans notre [repository git](https://github.com/TER-Zybo/PmodENC_Linux).
+- Cross-compiler GCC armhf, tel que celui disponible sur le [site officiel de développement ARM](https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads), assurez-vous de télécharger une version ciblant Arch32 GNU/Linux avec hard float (arm-none-linux-gnueabihf).
 
 ### Étapes
 
-1.  Compiler l'application `check_uio_value` avec votre cross-compiler GCC, par exemple `arm-none-linux-gnueabihf-gcc -o check_uio_value check_uio_value.c` dans le cas où l'on utilise celui proposé précédemment.
+1.  Compiler l'application `check_uio_value` avec cross-compiler GCC
 
-2.  Transférer l'application résultante sur la Zybo, dans le dossier personnel `/home/[NOM D'UTILISATEUR]` par exemple.
+    ```
+    arm-none-linux-gnueabihf-gcc -o check_uio_value check_uio_value.c
+    ``` 
 
-3.  La rendre éxecutable en faisant `chmod +x check_uio_value`.
+2.  Transférer l'application résultante sur l'environnement linux de la Zybo.
+
+3.  La rendre éxecutable avec `chmod +x check_uio_value`.
+
+4.  Félicitations, vous avez désormais tout les éléments nécessaires pour reprogrammer le FPGA et tester l'encodeur.
+
+---
 
 ## Reprogrammation et test de l'encodeur
 
@@ -137,10 +186,10 @@ Tous les élements nécessaires sont désormais réunis, il ne manque plus qu'à
 
 ### Prérequis
 
-- [Drivers](#drivers)
-- [Bitstream](#drivers)
-- [Overlay](#overlay)
-- [Application](#application)
+- [Drivers UIO](#drivers)
+- [Bitstream BIN](#bitstream)
+- [DTO compilé](#overlay)
+- [Application compilé](#application)
 
 ### Étapes
 
