@@ -1,0 +1,1621 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../pmodenc_ip/">
+      
+      
+        <link rel="next" href="../ssh_activation/">
+      
+      
+      <link rel="icon" href="../../assets/logo.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.27">
+    
+    
+      
+        <title>PmodENC - Linux application - TER Project</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.6543a935.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#reprogrammation-fpga-et-application-uio-pour-pmodenc-sous-linux" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="TER Project" class="md-header__button md-logo" aria-label="TER Project" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            TER Project
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              PmodENC - Linux application
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Passer au mode clair"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Passer au mode clair" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9h-1.9M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69m-9.15 3.96h2.3L12 9l-1.15 3.65Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Passer au mode sombre"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Passer au mode sombre" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Passer au mode automatique"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Passer au mode automatique" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/TER-Zybo/Documentations" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Documentations
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../boot_sequence/" class="md-tabs__link">
+          
+  
+  Documentation
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../journal/semaine1/" class="md-tabs__link">
+          
+  
+  Journal de bord
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="TER Project" class="md-nav__button md-logo" aria-label="TER Project" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    TER Project
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/TER-Zybo/Documentations" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Documentations
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Documentation
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            Documentation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../boot_sequence/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Séquence de boot
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../device_tree/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Les Devices Tree
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fpga_manager/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FPGA Manager
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_1_4" id="__nav_1_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Projets
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_1_4">
+            <span class="md-nav__icon md-icon"></span>
+            Projets
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linux_zybo/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux - Zybo Z7-20
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pmodenc_vhdl/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PmodENC - VHDL personnalisé
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pmodenc_baremetal/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PmodENC - Baremetal application
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pmodenc_ip/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PmodENC - Bloc IP personnalisé
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    PmodENC - Linux application
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    PmodENC - Linux application
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#drivers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Drivers
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Drivers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#introduction_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prerequis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prérequis
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etapes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Étapes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bitstream" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bitstream
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bitstream">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#introduction_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prerequis_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prérequis
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etapes_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Étapes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overlay" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overlay
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Overlay">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#introduction_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prerequis_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prérequis
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etapes_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Étapes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#application" class="md-nav__link">
+    <span class="md-ellipsis">
+      Application
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Application">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#introduction_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prerequis_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prérequis
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etapes_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Étapes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reprogrammation-et-test-de-lencodeur" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reprogrammation et test de l'encodeur
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Reprogrammation et test de l'encodeur">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#introduction_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prerequis_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prérequis
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etapes_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Étapes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_5" id="__nav_1_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Rappels
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_5">
+            <span class="md-nav__icon md-icon"></span>
+            Rappels
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ssh_activation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Activation SSH
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Journal de bord
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Journal de bord
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../journal/semaine1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Semaine 1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../journal/semaine2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Semaine 2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../journal/semaine3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Semaine 3
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../journal/semaine4/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Semaine 4
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../journal/semaine5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Semaine 5
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../journal/semaine6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Semaine 6
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#drivers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Drivers
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Drivers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#introduction_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prerequis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prérequis
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etapes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Étapes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bitstream" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bitstream
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bitstream">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#introduction_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prerequis_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prérequis
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etapes_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Étapes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overlay" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overlay
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Overlay">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#introduction_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prerequis_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prérequis
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etapes_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Étapes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#application" class="md-nav__link">
+    <span class="md-ellipsis">
+      Application
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Application">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#introduction_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prerequis_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prérequis
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etapes_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Étapes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reprogrammation-et-test-de-lencodeur" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reprogrammation et test de l'encodeur
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Reprogrammation et test de l'encodeur">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#introduction_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prerequis_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prérequis
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etapes_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Étapes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="reprogrammation-fpga-et-application-uio-pour-pmodenc-sous-linux">Reprogrammation <abbr title="Field-Programmable Gate Array">FPGA</abbr> et application <abbr title="Userspace I/O">UIO</abbr> pour PmodENC sous Linux</h1>
+<h2 id="introduction">Introduction</h2>
+<p>Ce projet vise à récupérer les données du compteur de notre <a href="../pmodenc_ip/">bloc IP personnalisé</a> via le driver <abbr title="Userspace I/O">UIO</abbr> de Linux sur la carte Zybo Z7-20, en reprogrammant le <abbr title="Field-Programmable Gate Array">FPGA</abbr>. Le Zynq n'inclut pas initialement l'encodeur et son bloc IP dans le <abbr title="Field-Programmable Gate Array">FPGA</abbr> ni dans le <a href="../device_tree/">Device Tree</a>. Pour pallier cela, un <a href="../device_tree/#device-tree-overlay">Device Tree Overlay</a> est utilisé, accompagné d'un nouveau bitstream à implémenter avec le <a href="../fpga_manager/"><abbr title="Field-Programmable Gate Array">FPGA</abbr> Manager</a>. <strong>Avoir Linux installé sur la carte est un prérequis</strong>. Vous pouvez suivre notre <a href="../linux_zybo/">guide</a> pour déployer Debian ou utiliser un autre <abbr title="Root File System">RFS</abbr>.</p>
+<p>Ce projet est disponible sur <a href="https://github.com/TER-Zybo/PmodENC_Linux">GitHub</a>.</p>
+<hr />
+<h2 id="drivers">Drivers</h2>
+<h3 id="introduction_1">Introduction</h3>
+<p>Pour faire fonctionner l'encodeur via <abbr title="Userspace I/O">UIO</abbr>, il est nécessaire de disposer du driver approprié. Cela implique d'apporter quelques modifications initiales dans PetaLinux, puis de transférer les modules du kernel vers le <abbr title="Root File System">RFS</abbr>.</p>
+<div class="admonition info">
+<p class="admonition-title">Custom <abbr title="Root File System">RFS</abbr></p>
+<p>Le <abbr title="Root File System">RFS</abbr> fourni par PetaLinux lors de la génération du projet contient déjà les drivers <abbr title="Userspace I/O">UIO</abbr>. Cette partie ne s'applique que si vous utilisez un <abbr title="Root File System">RFS</abbr> autre que celui fourni par PetaLinux, comme vu dans notre guide. Cependant assurez-vous d'avoir les options de l'étape 3 activées.</p>
+</div>
+<h3 id="prerequis">Prérequis</h3>
+<ul>
+<li>Projet PetaLinux avec son <abbr title="Xilinx Support Archive">XSA</abbr></li>
+</ul>
+<blockquote>
+<p>Pour plus d'informations sur la génération du projet PetaLinux, veuillez consulter notre <a href="../linux_zybo/">guide</a>.</p>
+</blockquote>
+<h3 id="etapes">Étapes</h3>
+<ol>
+<li>
+<p>Modifier la configuration PetaLinux pour conserver le dossier <code>linux-xlnx</code> contenant les différents artéfacts du kernel.</p>
+<ul>
+<li>Ajouter <code>RM_WORK_EXCLUDE += "linux-xlnx"</code> dans le fichier <code>petalinuxbsp.conf</code> disponible dans le dossier <code>project-spec/meta-user/conf/</code> du projet PetaLinux.</li>
+</ul>
+<details class="note">
+<summary>Les artéfacts du kernel</summary>
+<p>Les artefacts du kernel sont les fichiers générés lors de la compilation du noyau Linux, tels que les modules du kernel, les fichiers de configuration, et d'autres fichiers nécessaires au bon fonctionnement du système d'exploitation.</p>
+</details>
+</li>
+<li>
+<p>Accéder à la configuration du kernel et activer les drivers <abbr title="Userspace I/O">UIO</abbr>.</p>
+<div class="highlight"><pre><span></span><code>petalinux-config -c kernel
+</code></pre></div>
+<p>Veillez à activer les options suivantes :</p>
+<ul>
+<li>Device Drivers -&gt; Userspace I/O drivers -&gt; Userspace I/O platform driver with generic IRQ handling</li>
+<li>Device Drivers -&gt; Userspace I/O drivers -&gt; Userspace platform driver with generic irq and dynamic memory </li>
+</ul>
+</li>
+<li>
+<p>Modifier les bootargs du kernel.</p>
+<div class="highlight"><pre><span></span><code>petalinux-config
+</code></pre></div>
+<ul>
+<li>DTG Settings -&gt; Kernel Bootargs -&gt; Add extra boot args : Ajouter <code>uio_pdrv_genirq.of_id=generic-uio</code>.</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">TMPDIR emplacement</p>
+<p>Nous vous recommandons de noter le chemin du dossier temporaire créé par PetaLinux, car il sera nécessaire pour récupérer les modules du kernel.
+Pour connaître le chemin du dossier temporaire créé par PetaLinux, allez dans :</p>
+<ul>
+<li>Yocto Settings -&gt; TMPDIR Location -&gt; TMPDIR Location</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Build le kernel. </p>
+<div class="highlight"><pre><span></span><code>petalinux-build -c kernel
+</code></pre></div>
+</li>
+<li>
+<p>Transférer le kernel vers la partition de BOOT de la carte SD.</p>
+<blockquote>
+<p>plus d'informations sur le transfert du kernel <a href="../linux_zybo/#preparation-de-la-carte-sd">ici</a>.</p>
+</blockquote>
+</li>
+<li>
+<p>Copier le dossier des modules du kernel dans le <abbr title="Root File System">RFS</abbr>.</p>
+<p>Accéder au TMPDIR généré par petalinux et se rendre dans le répertoire contenant les artefacts du kernel.</p>
+<div class="highlight"><pre><span></span><code>cd [TMPDIR]/work/zynq_generic_7z020-xilinx-linux-gnueabi/linux-xlnx/6.1.30-xilinx-v2023.2+gitAUTOINC+a19da02cf5-r0/image/lib/modules/
+</code></pre></div>
+<p>Copier le dossier <code>6.1.30-xilinx-v2023.2</code> dans le dossier <code>lib/modules</code> de votre <abbr title="Root File System">RFS</abbr>. Le nom du dossier peut varier en fonction de la version du kernel et de PetaLinux.</p>
+<div class="admonition warning">
+<p class="admonition-title">Chemin des modules et nom du dossier</p>
+<p>Le chemin des modules et le nom du dossier peuvent varier en fonction de la version du kernel et de PetaLinux.</p>
+</div>
+</li>
+<li>
+<p>Félicitations, les drivers <abbr title="Userspace I/O">UIO</abbr> sont désormais disponibles dans votre <abbr title="Root File System">RFS</abbr>.</p>
+</li>
+</ol>
+<hr />
+<h2 id="bitstream">Bitstream</h2>
+<h3 id="introduction_2">Introduction</h3>
+<p>Pour reprogrammer le <abbr title="Field-Programmable Gate Array">FPGA</abbr>, vous devez disposer d'un bitstream comprenant le block design utilisé précédemment pour générer le projet Petalinux, ainsi que les blocs IP et modules <abbr title="Register Transfer Level">RTL</abbr> que vous souhaitez ajouter. </p>
+<p>Dans le cadre de notre projet, le seul bloc IP ajouté est <a href="../pmodenc_ip/">PetaENC</a>.</p>
+<h3 id="prerequis_1">Prérequis</h3>
+<p>La procédure décrite ci-dessous suppose que :</p>
+<ol>
+<li>Le block design de base est celui récupéré lors de l'étape <a href="../linux_zybo/">Génération du Matériel</a> de notre guide Linux.</li>
+<li>Le bloc IP ajouté est <a href="../pmodenc_ip/">PetaENC</a> disponible sur <a href="https://github.com/TER-Zybo/PetaENC_IP">github</a>.</li>
+</ol>
+<div class="admonition tip">
+<p class="admonition-title">Pret à l'emploi</p>
+<p>Si vous souhaitez utiliser le projet avec le block design final, vous pouvez le récupérer sur <a href="https://github.com/TER-Zybo/PmodENC_Linux">github</a>.</p>
+</div>
+<h3 id="etapes_1">Étapes</h3>
+<ol>
+<li>
+<p>Ouvrir le projet <code>hw_with_enc</code> dans <abbr title="Vivado Design Suite">Vivado</abbr>, disponible en clonant le <a href="https://github.com/TER-Zybo/PmodENC_Linux">repository git</a>.</p>
+</li>
+<li>
+<p>S'assurer que le bloc IP personnalisé est bien dans le catalogue, voir <a href="../pmodenc_ip/#ajout-du-bloc-ip-a-vivado">Ajout du Bloc IP à <abbr title="Vivado Design Suite">Vivado</abbr></a> pour plus d'informations.</p>
+</li>
+<li>
+<p>Réaliser la synthèse, l'implémentation et la génération du bitstream.</p>
+</li>
+<li>
+<p>Exporter le bitstream en faisant clic-droit sur l'implémentation dans la section <code>Project Manager &gt; Design Runs</code> puis <code>Export Bitstream File...</code>.</p>
+</li>
+<li>
+<p>Suivre les indications de la section <a href="../fpga_manager/#generation-dun-fichier-bin-a-partir-dun-fichier-bit">Génération d'un Fichier <abbr title="binary file">BIN</abbr> à partir d'un Fichier <abbr title="bitstream file">BIT</abbr></a> de la documention sur le <a href="../fpga_manager/"><abbr title="Field-Programmable Gate Array">FPGA</abbr> Manager</a> afin de transformer le <abbr title="bitstream file">BIT</abbr> en <abbr title="binary file">BIN</abbr>.</p>
+</li>
+<li>
+<p>Transférer le <abbr title="binary file">BIN</abbr> sur l'envirronement linux de la Zybo.</p>
+</li>
+<li>
+<p>Félicitations, le bitstream est prêt à être utilisé pour reprogrammer le <abbr title="Field-Programmable Gate Array">FPGA</abbr>.</p>
+</li>
+</ol>
+<hr />
+<h2 id="overlay">Overlay</h2>
+<h3 id="introduction_3">Introduction</h3>
+<p>Tout comme le bitstream est nécessaire pour reprogrammer le <abbr title="Field-Programmable Gate Array">FPGA</abbr>, le <a href="../device_tree/#device-tree-overlay">Device Tree Overlay</a> est nécessaire afin que le kernel Linux puisse interagir avec notre <a href="../pmodenc_ip/">bloc IP personnalisé</a>.</p>
+<p>Le <abbr title="Device Tree Overlay">DTO</abbr> utilisé ici est spécifique à notre bloc IP et est expliqué plus en détail dans la section <a href="../device_tree/#exemple-dto-pour-un-encodeur">Exemple <abbr title="Device Tree Overlay">DTO</abbr> pour un encodeur</a> dans la documentation sur les <a href="../device_tree/"><abbr title="Device Tree">DT</abbr></a>.</p>
+<h3 id="prerequis_2">Prérequis</h3>
+<ul>
+<li>Fichier source <code>.dtso</code> du <abbr title="Device Tree Overlay">DTO</abbr>, disponible sur <a href="https://github.com/TER-Zybo/PmodENC_Linux">github</a> du projet.</li>
+<li>Device Tree Compiler (<abbr title="Device Tree Compiler">DTC</abbr>) pour compiler le <abbr title="Device Tree Overlay">DTO</abbr>. Disponible dans vitis (<code>Vitis/2023.1/bin/</code> pour la versin 2023.1) ou depuis le <a href="https://git.kernel.org/pub/scm/utils/dtc/dtc.git">repository officiel</a></li>
+</ul>
+<h3 id="etapes_2">Étapes</h3>
+<div class="admonition note">
+<p class="admonition-title">Correspondance des noms</p>
+<p>Assurez-vous que le nom du fichier <code>.bit.bin</code> généré dans la section précédente correspond à celui utilisé dans le <abbr title="Device Tree Overlay">DTO</abbr>. Veillez modifier le <abbr title="Device Tree Overlay">DTO</abbr> si nécessaire.</p>
+</div>
+<ol>
+<li>
+<p>Suivre la procédure de <a href="../device_tree/#procedure_1">compilation d'un <abbr title="Device Tree Overlay">DTO</abbr></a>.</p>
+</li>
+<li>
+<p>Transférer le <code>.dtbo</code> résultant sur l'environnement linux de la Zybo.</p>
+</li>
+<li>
+<p>Félicitations, le <abbr title="Device Tree Overlay">DTO</abbr> est prêt à être utilisé pour reprogrammer le <abbr title="Field-Programmable Gate Array">FPGA</abbr>.</p>
+</li>
+</ol>
+<hr />
+<h2 id="application">Application</h2>
+<h3 id="introduction_4">Introduction</h3>
+<p>Une fois que les drivers, le bitstream au format <abbr title="binary file">BIN</abbr>, et le <abbr title="Device Tree Overlay">DTO</abbr> compilé sont disponibles sur la Zybo, la reprogrammation du <abbr title="Field-Programmable Gate Array">FPGA</abbr> peut être effectuée. Cependant, il est également nécessaire de disposer d'une application pour tester le bon fonctionnement de notre encodeur. Une application simple utilisant le driver <abbr title="Userspace I/O">UIO</abbr> est disponible dans le dossier <code>app</code> du <a href="https://github.com/TER-Zybo/PmodENC_Linux">repository git</a> de notre projet.</p>
+<p>Cette application doit être compilée pour l'architecture cible, en l'occurrence <strong>armhf</strong>. Il est donc nécessaire d'utiliser un cross-compiler pour effectuer cette compilation.</p>
+<h3 id="prerequis_3">Prérequis</h3>
+<ul>
+<li>Fichier <code>.c</code> de l'application <code>check_uio_value</code>, disponible dans <code>app</code> dans notre <a href="https://github.com/TER-Zybo/PmodENC_Linux">repository git</a>.</li>
+<li>Cross-compiler <abbr title="GNU Compiler Collection">GCC</abbr> armhf, tel que celui disponible sur le <a href="https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads">site officiel de développement <abbr title="Advanced RISC Machine">ARM</abbr></a>, assurez-vous de télécharger une version ciblant Arch32 GNU/Linux avec hard float (arm-none-linux-gnueabihf).</li>
+</ul>
+<h3 id="etapes_3">Étapes</h3>
+<ol>
+<li>
+<p>Compiler l'application <code>check_uio_value</code> avec cross-compiler <abbr title="GNU Compiler Collection">GCC</abbr></p>
+<div class="highlight"><pre><span></span><code>arm-none-linux-gnueabihf-gcc -o check_uio_value check_uio_value.c
+</code></pre></div>
+</li>
+<li>
+<p>Transférer l'application résultante sur l'environnement linux de la Zybo.</p>
+</li>
+<li>
+<p>La rendre éxecutable avec <code>chmod +x check_uio_value</code>.</p>
+</li>
+<li>
+<p>Félicitations, vous avez désormais tout les éléments nécessaires pour reprogrammer le <abbr title="Field-Programmable Gate Array">FPGA</abbr> et tester l'encodeur.</p>
+</li>
+</ol>
+<hr />
+<h2 id="reprogrammation-et-test-de-lencodeur">Reprogrammation et test de l'encodeur</h2>
+<h3 id="introduction_5">Introduction</h3>
+<p>Tous les élements nécessaires sont désormais réunis, il ne manque plus qu'à réaliser la reprogrammation et tester l'encodeur avec l'application précédemment compilée.</p>
+<h3 id="prerequis_4">Prérequis</h3>
+<ul>
+<li><a href="#drivers">Drivers <abbr title="Userspace I/O">UIO</abbr></a></li>
+<li><a href="#bitstream">Bitstream <abbr title="binary file">BIN</abbr></a></li>
+<li><a href="#overlay"><abbr title="Device Tree Overlay">DTO</abbr> compilé</a></li>
+<li><a href="#application">Application compilé</a></li>
+</ul>
+<h3 id="etapes_4">Étapes</h3>
+<ol>
+<li>
+<p>Suivre les étapes de reprogrammation <code>Avec DTO</code> de la section <a href="../fpga_manager/#mise-a-jour-du-fpga-depuis-linux">Mise à Jour du <abbr title="Field-Programmable Gate Array">FPGA</abbr> depuis Linux</a> de notre guide <a href="../fpga_manager/"><abbr title="Field-Programmable Gate Array">FPGA</abbr> Manager</a>.</p>
+</li>
+<li>
+<p>Une fois la reprogrammation réalisée, brancher l'encodeur dans le connecteur JE de la carte Zybo Z7-20.</p>
+</li>
+<li>
+<p>Lancer l'application <code>check_uio_value</code> avec la commande <code>check_uio_value 0 0x0 0x1000 polling</code>.</p>
+<ul>
+<li>La première valeur <code>0</code> représente le numéro de device <abbr title="Userspace I/O">UIO</abbr> visible dans <code>/dev/</code>, donc ici <code>/dev/uio0</code>.</li>
+<li>La deuxième valeur représente l'offset de l'adresse à check, ici <code>0x0</code> étant donné que c'est le registre 0 de notre bloc IP à vérifier.</li>
+<li>La troisième valeur représente la taille de la mémoire allouée au device, donc ici <code>0x1000</code>.</li>
+<li>L'option <code>polling</code> permet d'afficher à l'écran la valeur du registre toutes les secondes.</li>
+</ul>
+</li>
+<li>
+<p>Tourner l'encodeur et voir la valeur du compteur augmenter. Vous pouvez appuyer sur l'encodeur pour remettre le codeur à 0.</p>
+</li>
+<li>
+<p>Faire <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> pour quitter l'application.</p>
+</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      &copy; 2024 <a href="https://github.com/HDwayne"  target="_blank" rel="noopener">Dwayne HERZBERG</a>,
+<a href="https://github.com/Luxrafen0"  target="_blank" rel="noopener">Oleg PAILLOT</a>.
+
+    </div>
+  
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/TER-Zybo" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.ad660dcc.min.js"></script>
+      
+    
+  </body>
+</html>

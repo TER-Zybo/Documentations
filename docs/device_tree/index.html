@@ -1,0 +1,1459 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../boot_sequence/">
+      
+      
+        <link rel="next" href="../fpga_manager/">
+      
+      
+      <link rel="icon" href="../../assets/logo.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.27">
+    
+    
+      
+        <title>Les Devices Tree - TER Project</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.6543a935.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#device-tree-et-device-tree-overlay" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="TER Project" class="md-header__button md-logo" aria-label="TER Project" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            TER Project
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Les Devices Tree
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Passer au mode clair"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Passer au mode clair" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9h-1.9M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69m-9.15 3.96h2.3L12 9l-1.15 3.65Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Passer au mode sombre"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Passer au mode sombre" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Passer au mode automatique"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Passer au mode automatique" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/TER-Zybo/Documentations" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Documentations
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../boot_sequence/" class="md-tabs__link">
+          
+  
+  Documentation
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../journal/semaine1/" class="md-tabs__link">
+          
+  
+  Journal de bord
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="TER Project" class="md-nav__button md-logo" aria-label="TER Project" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    TER Project
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/TER-Zybo/Documentations" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Documentations
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Documentation
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            Documentation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../boot_sequence/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Séquence de boot
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Les Devices Tree
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Les Devices Tree
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Introduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#device-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      Device Tree
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#device-tree-overlay" class="md-nav__link">
+    <span class="md-ellipsis">
+      Device Tree Overlay
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exemple-dto-pour-un-encodeur" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exemple DTO pour un encodeur
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generation-de-device-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      Génération de Device Tree
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Génération de Device Tree">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#contexte" class="md-nav__link">
+    <span class="md-ellipsis">
+      Contexte
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prerequis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prérequis
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#procedure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Procédure
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compilation-dun-device-tree-overlay" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compilation d'un Device Tree Overlay
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Compilation d'un Device Tree Overlay">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#contexte_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Contexte
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prerequis_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prérequis
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#procedure_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Procédure
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fpga_manager/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FPGA Manager
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_4" id="__nav_1_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Projets
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_4">
+            <span class="md-nav__icon md-icon"></span>
+            Projets
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linux_zybo/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux - Zybo Z7-20
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pmodenc_vhdl/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PmodENC - VHDL personnalisé
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pmodenc_baremetal/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PmodENC - Baremetal application
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pmodenc_ip/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PmodENC - Bloc IP personnalisé
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pmodenc_linux/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PmodENC - Linux application
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_5" id="__nav_1_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Rappels
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_5">
+            <span class="md-nav__icon md-icon"></span>
+            Rappels
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ssh_activation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Activation SSH
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Journal de bord
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Journal de bord
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../journal/semaine1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Semaine 1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../journal/semaine2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Semaine 2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../journal/semaine3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Semaine 3
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../journal/semaine4/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Semaine 4
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../journal/semaine5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Semaine 5
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../journal/semaine6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Semaine 6
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Introduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#device-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      Device Tree
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#device-tree-overlay" class="md-nav__link">
+    <span class="md-ellipsis">
+      Device Tree Overlay
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exemple-dto-pour-un-encodeur" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exemple DTO pour un encodeur
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generation-de-device-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      Génération de Device Tree
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Génération de Device Tree">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#contexte" class="md-nav__link">
+    <span class="md-ellipsis">
+      Contexte
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prerequis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prérequis
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#procedure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Procédure
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compilation-dun-device-tree-overlay" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compilation d'un Device Tree Overlay
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Compilation d'un Device Tree Overlay">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#contexte_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Contexte
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prerequis_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prérequis
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#procedure_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Procédure
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="device-tree-et-device-tree-overlay">Device Tree et Device Tree Overlay</h1>
+<h2 id="introduction">Introduction</h2>
+<p>Le Device Tree permet de maintenir le noyau Linux générique, sans avoir besoin d'intégrer des détails matériels spécifiques dans le noyau lui-même. Cette flexibilité permet de porter le même noyau sur différentes plateformes matérielles en modifiant simplement le Device Tree. Cette caractéristique est cruciale pour le développement et la maintenance de systèmes embarqués.</p>
+<h3 id="device-tree">Device Tree</h3>
+<p>Les Device Trees permettent de visualiser les différents périphériques, composants et registres accessibles par le processeur sous forme d'une structure arborescente. Cette approche organise les informations de manière hiérarchique, facilitant ainsi l'identification et l'accès aux composants spécifiques du système.</p>
+<p>La syntaxe utilisée pour définir les Device Trees est la suivante (<a href="https://elinux.org/Device_Tree_Usage">elinux.org</a>) :</p>
+<div class="admonition example">
+<p class="admonition-title">Exemple de Device Tree</p>
+<div class="highlight"><pre><span></span><code><span class="cp">/dts-v1/</span><span class="p">;</span>
+
+<span class="nf">/</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nf">node1</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">a-string-property</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;A string&quot;</span><span class="p">;</span>
+<span class="w">        </span><span class="n">a-string-list-property</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;first string&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;second string&quot;</span><span class="p">;</span>
+<span class="w">        </span><span class="c1">// hex is implied in byte arrays. no &#39;0x&#39; prefix is required</span>
+<span class="w">        </span><span class="n">a-byte-data-property</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="mi">01</span><span class="w"> </span><span class="mi">23</span><span class="w"> </span><span class="mi">34</span><span class="w"> </span><span class="mi">56</span><span class="p">];</span>
+<span class="w">        </span><span class="nf">child-node1</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">first-child-property</span><span class="p">;</span>
+<span class="w">            </span><span class="n">second-child-property</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">            </span><span class="n">a-string-property</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Hello, world&quot;</span><span class="p">;</span>
+<span class="w">        </span><span class="p">};</span>
+<span class="w">        </span><span class="nf">child-node2</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">        </span><span class="p">};</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="w">    </span><span class="nf">node2</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">an-empty-property</span><span class="p">;</span>
+<span class="w">        </span><span class="n">a-cell-property</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">1</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="mi">4</span><span class="o">&gt;</span><span class="p">;</span><span class="w"> </span><span class="cm">/* each number (cell) is a uint32 */</span>
+<span class="w">        </span><span class="nf">child-node1</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">        </span><span class="p">};</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="p">};</span>
+</code></pre></div>
+</div>
+<p>Les Device Trees doivent être compilés pour être transformés en un format binaire utilisable par le système. Cette étape de compilation est effectuée à l'aide de l'outil Device Tree Compiler (<abbr title="Device Tree Compiler">DTC</abbr>). Le résultat de cette compilation est un Device Tree Blob (<abbr title="Device Tree Blob">DTB</abbr>) sous l'extension <code>.dtb</code>.</p>
+<p>Plus de détails concernant les Device Trees sont disponibles sur <a href="https://bootlin.com/pub/conferences/2021/webinar/petazzoni-device-tree-101/petazzoni-device-tree-101.pdf">Device Tree 101</a>, une présentation de <a href="https://bootlin.com/">Bootlin</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Séparation des fichiers</p>
+<p>Il est souvent nécessaire de séparer un Device Tree en plusieurs fichiers. Cette séparation se fait en utilisant les formats suivants :</p>
+<ul>
+<li><code>.dts</code> (Device Tree Source) : fichier principal du Device Tree, pouvant inclure d'autres fichiers.</li>
+<li><code>.dtsi</code> (Device Tree Include) : fichiers à inclure dans le fichier principal .dts via des directives #include.</li>
+</ul>
+<p>L'assemblage de ces fichiers séparés est réalisé en utilisant le préprocesseur <abbr title="GNU Compiler Collection">GCC</abbr>, permettant ainsi de combiner les différentes parties en un seul fichier cohérent (fichier <code>.dts</code> final sans #include).</p>
+</div>
+<h3 id="device-tree-overlay">Device Tree Overlay</h3>
+<p>Les Device Trees décrivent les composants matériels pour que le système d'exploitation puisse les reconnaître et les utiliser. Cependant, que faire si l'on veut ajouter un composant alors qu'un Device Tree est déjà en cours d'utilisation et qu'il est impossible d'éteindre le système ? </p>
+<p>La solution se trouve dans les Device Tree Overlays (<abbr title="Device Tree Overlay">DTO</abbr>). Ces morceaux de Device Tree permettent de rajouter, modifier ou même supprimer des nœuds de l'arbre, modifiant ainsi le comportement du système à la volée.</p>
+<p>Les fichiers de <abbr title="Device Tree Overlay">DTO</abbr> sont généralement au format <code>.dtso</code> et <code>.dtbo</code> pour la version compilée. Notez qu'il est aussi possible de voir des overlays en <code>.dtsi</code>. Ne vous fiez donc pas uniquement au format de fichier. La principale manière de les différencier se trouve dans leur syntaxe et la mention de <code>/plugin/</code> au début du fichier.</p>
+<p>Deux syntaxes existent : une ancienne et une nouvelle.</p>
+<div class="admonition example">
+<p class="admonition-title">Exemple de Device Tree Overlay</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Ancienne</label><label for="__tabbed_1_2">Nouvelle</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="cp">/dts-v1/</span><span class="p">;</span>
+<span class="cp">/plugin/</span><span class="p">;</span>
+
+<span class="nf">/</span><span class="cm"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="nf">fragment</span><span class="o">@</span><span class="mi">0</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">target</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;&amp;</span><span class="na">fpga_full</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">        </span><span class="nf">__overlay__</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">firmware-name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;enc_wrapper.bit.bin&quot;</span><span class="p">;</span>
+<span class="w">        </span><span class="p">};</span>
+<span class="w">    </span><span class="p">};</span>
+
+<span class="w">    </span><span class="nf">fragment</span><span class="o">@</span><span class="mi">1</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">target</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;&amp;</span><span class="na">amba</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">        </span><span class="nf">__overlay__</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nl">PetaENC_0</span><span class="p">:</span><span class="w"> </span><span class="nf">PetaENC</span><span class="o">@</span><span class="mi">40000000</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">clock-names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;s_axi_aclk&quot;</span><span class="p">;</span>
+<span class="w">                </span><span class="n">clocks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;&amp;</span><span class="na">clkc</span><span class="w"> </span><span class="mi">15</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">                </span><span class="kr">compatible</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;generic-uio&quot;</span><span class="p">;</span>
+<span class="w">                </span><span class="kr">reg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mh">0x40000000</span><span class="w"> </span><span class="mh">0x1000</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">            </span><span class="p">};</span>
+<span class="w">        </span><span class="p">};</span>
+<span class="w">    </span><span class="p">};</span>
+
+<span class="p">};</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="cp">/dts-v1/</span><span class="p">;</span>
+<span class="cp">/plugin/</span><span class="p">;</span>
+
+<span class="o">&amp;</span><span class="na">fpga_full</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">firmware-name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;enc_wrapper.bit.bin&quot;</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="o">&amp;</span><span class="na">amba</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nl">PetaENC_0</span><span class="p">:</span><span class="w"> </span><span class="nf">PetaENC</span><span class="o">@</span><span class="mi">40000000</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">clock-names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;s_axi_aclk&quot;</span><span class="p">;</span>
+<span class="w">        </span><span class="n">clocks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;&amp;</span><span class="na">clkc</span><span class="w"> </span><span class="mi">15</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">        </span><span class="kr">compatible</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;generic-uio&quot;</span><span class="p">;</span>
+<span class="w">        </span><span class="kr">reg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mh">0x40000000</span><span class="w"> </span><span class="mh">0x1000</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="p">};</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>Ces deux exemples sont fonctionnellement équivalents. La nouvelle syntaxe est souvent préférée pour sa simplicité et sa lisibilité.</p>
+</div>
+<h3 id="exemple-dto-pour-un-encodeur">Exemple <abbr title="Device Tree Overlay">DTO</abbr> pour un encodeur</h3>
+<p>Le Device Tree est généré automatiquement par PetaLinux à partir d'un fichier <abbr title="Xilinx Support Archive">XSA</abbr>. Notre travail s'est principalement concentré sur la création de l'overlay. </p>
+<p>L'overlay que nous avons utilisé est écrit avec l'ancienne syntaxe et permet de réaliser plusieurs actions importantes :</p>
+<div class="admonition abstract">
+<p class="admonition-title">Overlay utilisé pour la reprogrammation de l'encodeur</p>
+<div class="highlight"><pre><span></span><code><span class="cp">/dts-v1/</span><span class="p">;</span>
+<span class="cp">/plugin/</span><span class="p">;</span>
+
+<span class="nf">/</span><span class="cm"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="nf">fragment</span><span class="o">@</span><span class="mi">0</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">target</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;&amp;</span><span class="na">fpga_full</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">        </span><span class="nf">__overlay__</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">firmware-name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;enc_wrapper.bit.bin&quot;</span><span class="p">;</span>
+<span class="w">        </span><span class="p">};</span>
+<span class="w">    </span><span class="p">};</span>
+
+<span class="w">    </span><span class="nf">fragment</span><span class="o">@</span><span class="mi">1</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">target</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;&amp;</span><span class="na">amba</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">        </span><span class="nf">__overlay__</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nl">PetaENC_0</span><span class="p">:</span><span class="w"> </span><span class="nf">PetaENC</span><span class="o">@</span><span class="mi">40000000</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">clock-names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;s_axi_aclk&quot;</span><span class="p">;</span>
+<span class="w">                </span><span class="n">clocks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;&amp;</span><span class="na">clkc</span><span class="w"> </span><span class="mi">15</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">                </span><span class="kr">compatible</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;generic-uio&quot;</span><span class="p">;</span>
+<span class="w">                </span><span class="kr">reg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mh">0x40000000</span><span class="w"> </span><span class="mh">0x1000</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">            </span><span class="p">};</span>
+<span class="w">        </span><span class="p">};</span>
+<span class="w">    </span><span class="p">};</span>
+
+<span class="p">};</span>
+</code></pre></div>
+</div>
+<p>Dans le cas des <abbr title="Field-Programmable Gate Array">FPGA</abbr> Zynq, le <code>fragment@0</code> de l'overlay modifie la propriété <code>firmware-name</code> de la région <abbr title="Field-Programmable Gate Array">FPGA</abbr>/<abbr title="Programmable Logic">PL</abbr>, spécifiant ainsi le bitstream à utiliser pour la reprogrammation. </p>
+<p>Le <code>fragment@1</code> ajoute un nouveau composant au bus AMBA/AXI à l'adresse mémoire <code>0x40000000</code>. Il spécifie également la clock utilisée par le composant et son nom via <code>clock-names</code> et <code>clocks</code>, le driver à utiliser pour communiquer avec l'appareil via la propriété <code>compatible</code>, et enfin l'adresse mémoire attribuée au composant ainsi que la taille de cette zone via <code>reg</code>.</p>
+<p>Ces ajouts permettent au kernel d'accéder aux registres de notre bloc IP avec le driver <abbr title="Userspace I/O">UIO</abbr>, facilitant ainsi l'interaction avec notre block IP.</p>
+<details class="tip">
+<summary>Explication détaillée</summary>
+<ul>
+<li>
+<p><strong>fragment@0</strong> :</p>
+<ul>
+<li><strong>target</strong> : Pointe vers la région <abbr title="Field-Programmable Gate Array">FPGA</abbr>/<abbr title="Programmable Logic">PL</abbr>.</li>
+<li><strong><strong>overlay</strong></strong> : <ul>
+<li><strong>firmware-name</strong> : Spécifie le nom du bitstream (<code>enc_wrapper.bit.bin</code>) à charger pour la reprogrammation du <abbr title="Field-Programmable Gate Array">FPGA</abbr>.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>fragment@1</strong> :</p>
+<ul>
+<li><strong>target</strong> : Pointe vers le bus AMBA/AXI.</li>
+<li><strong><strong>overlay</strong></strong> :<ul>
+<li><strong>PetaENC_0</strong> : Nom du composant ajouté.</li>
+<li><strong>clock-names</strong> : Nom de la clock utilisée (<code>s_axi_aclk</code>).</li>
+<li><strong>clocks</strong> : Référence à la clock configurée (15<sup>ème</sup> entrée dans <code>clkc</code>).</li>
+<li><strong>compatible</strong> : Spécifie le driver (<code>generic-uio</code>) à utiliser pour communiquer avec le composant.</li>
+<li><strong>reg</strong> : Spécifie l'adresse mémoire (<code>0x40000000</code>) et la taille de la zone mémoire allouée (<code>0x1000</code>).</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>En suivant cette structure, le kernel peut accéder aux registres de l'IP personnalisé en utilisant le driver <abbr title="Userspace I/O">UIO</abbr>.</p>
+</details>
+<hr />
+<h2 id="generation-de-device-tree">Génération de Device Tree</h2>
+<h3 id="contexte">Contexte</h3>
+<p>La génération du Device Tree est généralement prises en charge de manière automatique par des outils tels que PetaLinux, qui s'appuient sur les fichiers <abbr title="Xilinx Support Archive">XSA</abbr> pour produire ces éléments. Toutefois, dans certaines situations, il peut être intéressant de générer soi-même le Device Tree.</p>
+<h3 id="prerequis">Prérequis</h3>
+<ul>
+<li><abbr title="Vivado Design Suite">Vivado</abbr> et <abbr title="Vitis Unified Software Platform">Vitis</abbr> installés</li>
+<li>Fichier <abbr title="Xilinx Support Archive">XSA</abbr> généré</li>
+</ul>
+<h3 id="procedure">Procédure</h3>
+<ol>
+<li>
+<p>Lancer <abbr title="Xilinx Software Command-line Tool">XSCT</abbr></p>
+<p>Ouvrez un terminal et lancez <abbr title="Xilinx Software Command-line Tool">XSCT</abbr> :</p>
+<div class="highlight"><pre><span></span><code>xsct
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Si vous avez des problèmes pour lancer <abbr title="Xilinx Software Command-line Tool">XSCT</abbr>, lancer un terminal depuis vitis et exécuter la commande <code>xsct</code>.</p>
+</div>
+</li>
+<li>
+<p>Charger le fichier <abbr title="Xilinx Support Archive">XSA</abbr></p>
+<p>Utilisez la commande suivante pour charger votre fichier <abbr title="Xilinx Support Archive">XSA</abbr> :</p>
+<div class="highlight"><pre><span></span><code><span class="nv">hsi</span><span class="w"> </span>open_hw_design<span class="w"> </span><span class="o">&lt;</span>path_to_your_xsa_file<span class="o">&gt;</span>
+</code></pre></div>
+</li>
+<li>
+<p>Specifier le DTG repository</p>
+<div class="highlight"><pre><span></span><code>git clone https://github.com/Xilinx/device-tree-xlnx
+cd device-tree-xlnx
+git checkout &lt;xilinx_rel_v20XX.X&gt;
+</code></pre></div>
+<p>Spécifiez le répertoire DTG (Device Tree Generator) :
+<div class="highlight"><pre><span></span><code><span class="nv">hsi</span><span class="w"> </span>set_repo_path<span class="w"> </span><span class="o">&lt;</span>path<span class="w"> </span>to<span class="w"> </span>device-tree-xlnx<span class="w"> </span>repository<span class="o">&gt;</span>
+</code></pre></div></p>
+</li>
+<li>
+<p>SW design</p>
+<p>Utilisez la commande suivante pour obtenir la liste des processeurs disponibles :</p>
+<div class="highlight"><pre><span></span><code><span class="k">set</span><span class="w"> </span>procs<span class="w"> </span><span class="k">[</span><span class="nv">hsi</span><span class="w"> </span>get_cells<span class="w"> </span><span class="o">-</span>hier<span class="w"> </span><span class="o">-</span>filter<span class="w"> </span><span class="k">{</span><span class="nv">IP_TYPE</span><span class="o">==</span>PROCESSOR<span class="k">}]</span>
+</code></pre></div>
+<p>Choisissez le processeur que vous souhaitez utiliser pour générer le Device Tree :
+<div class="highlight"><pre><span></span><code><span class="nv">hsi</span><span class="w"> </span>create_sw_design<span class="w"> </span>device-tree<span class="w"> </span><span class="o">-</span>os<span class="w"> </span>device_tree<span class="w"> </span><span class="o">-</span>proc<span class="w"> </span><span class="o">&lt;</span>proc_name<span class="o">&gt;</span>
+</code></pre></div></p>
+</li>
+<li>
+<p>Générer le Device Tree</p>
+<div class="highlight"><pre><span></span><code><span class="nv">hsi</span><span class="w"> </span>generate_target<span class="w"> </span><span class="o">-</span>dir<span class="w"> </span><span class="o">&lt;</span>path<span class="w"> </span>to<span class="w"> </span>output<span class="w"> </span>file<span class="o">&gt;</span>
+</code></pre></div>
+</li>
+<li>
+<p>Fermer <abbr title="Xilinx Software Command-line Tool">XSCT</abbr></p>
+<div class="highlight"><pre><span></span><code><span class="nv">hsi</span><span class="w"> </span>close_hw_design<span class="w"> </span><span class="k">[</span><span class="nv">hsi</span><span class="w"> </span>current_hw_design<span class="k">]</span>
+<span class="nb">exit</span>
+</code></pre></div>
+</li>
+</ol>
+<p>En suivant cette procédure, vous serez en mesure de générer . Pour compiler le Device Tree généré, référez-vous à la <a href="https://xilinx-wiki.atlassian.net/wiki/spaces/A/pages/18842279/Build+Device+Tree+Blob#BuildDeviceTreeBlob-CompilingDevicetreeSources">documentation Xilinx officielle</a>.</p>
+<hr />
+<h2 id="compilation-dun-device-tree-overlay">Compilation d'un Device Tree Overlay</h2>
+<h3 id="contexte_1">Contexte</h3>
+<p>Le Device Tree Overlay (<abbr title="Device Tree Overlay">DTO</abbr>) pour le Zynq ne se génère pas automatiquement; il faut donc l'écrire soi-même. Toutefois, la compilation du <abbr title="Device Tree Overlay">DTO</abbr> est relativement simple grâce aux outils appropriés. Voici les étapes détaillées pour compiler un Device Tree Overlay.</p>
+<h3 id="prerequis_1">Prérequis</h3>
+<p>Pour compiler un Device Tree Overlay, vous aurez besoin du Device Tree Compiler (<abbr title="Device Tree Compiler">DTC</abbr>). Ce dernier est fourni avec <abbr title="Vitis Unified Software Platform">Vitis</abbr> ou peut être téléchargé depuis le repository officiel <a href="https://git.kernel.org/pub/scm/utils/dtc/dtc.git">ici</a>.</p>
+<h3 id="procedure_1">Procédure</h3>
+<div class="highlight"><pre><span></span><code>dtc -O dtb -o FICHIER.dtbo -b 0 -@ FICHIER.dtso
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      &copy; 2024 <a href="https://github.com/HDwayne"  target="_blank" rel="noopener">Dwayne HERZBERG</a>,
+<a href="https://github.com/Luxrafen0"  target="_blank" rel="noopener">Oleg PAILLOT</a>.
+
+    </div>
+  
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/TER-Zybo" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.ad660dcc.min.js"></script>
+      
+    
+  </body>
+</html>
