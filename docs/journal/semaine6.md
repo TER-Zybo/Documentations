@@ -38,3 +38,11 @@ Documentation                             --
 - projet vivado PmodENC_Linux mis à jour pour vivado 2023.2
 - fix bug l'ip PetaENC version 2023.2
 - test de l'ensemble des documentations depuis le début pour trouver des erreurs ou des oublis
+
+### Jeudi 20/06
+
+L'application avec les interruptions est désormais terminée et tous les objectifs de base sont désormais atteints. Envoi d'un mail pour informer le prof des différents repos et réalisations.
+
+### Vendredi 21/06
+
+Réception de l'avis du prof qui est satisfait, il ne reste plus que le rapport et la soutenance à préparer au niveau des attentes de l'UE, le reste est du bonus.
